@@ -13,6 +13,11 @@ spring:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
 
+  datasource:
+    url: 'jdbc:postgresql://${database.endpoint:localhost:5432}/${database.name:postgres}'
+    username: '${database.username:postgres}'
+    password: '${database.password:postgres}'
+
   security:
     oauth2:
       resourceserver:
@@ -20,6 +25,12 @@ spring:
           jwk-set-uri: ${hmpps-auth.url}/.well-known/jwks.json
 
       client:
+        registration:
+          default:
+            provider: hmpps-auth
+            authorization-grant-type: client_credentials
+            client-id: ${hmpps-auth.client-id}
+            client-secret: ${hmpps-auth.client-secret}
         provider:
           hmpps-auth:
             token-uri: ${hmpps-auth.url}/oauth/token
@@ -55,3 +66,21 @@ management:
     info:
       cache:
         time-to-live: 2000ms
+
+hmpps.sar.additionalAccessRole: SUICIDE_RISK
+
+---
+spring.config.activate.on-profile: dev
+hmpps-auth.url: http://localhost:9090/auth
+frontend.url: http://localhost:3000
+gotenberg.url: http://localhost:8072
+ndelius-integration-api.url: http://localhost:9101
+database.endpoint: localhost:5432
+
+---
+spring.config.activate.on-profile: test
+hmpps-auth.url: http://localhost:9101/auth
+frontend.url: http://localhost:3000
+gotenberg.url: http://localhost:9101
+ndelius-integration-api.url: http://localhost:9101
+spring.datasource.url: jdbc:tc:postgresql:17:///breachdb
