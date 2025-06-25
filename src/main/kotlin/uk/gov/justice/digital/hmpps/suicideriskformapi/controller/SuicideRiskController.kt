@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -26,7 +25,7 @@ import java.util.*
 
 @Validated
 @RestController
-@PreAuthorize("hasRole('ROLE_SUICIDE_RISK')")
+//@PreAuthorize("hasRole('ROLE_SUICIDE_RISK')") TODO: create PR for hmpps auth
 @RequestMapping(value = ["/suicide-risk"], produces = ["application/json"])
 class SuicideRiskController(
   private val suicideRiskService: SuicideRiskService,
@@ -72,7 +71,7 @@ class SuicideRiskController(
     ],
   )
   @ResponseStatus(HttpStatus.CREATED)
-  open fun initialiseSuicideRisk(@Valid @RequestBody initialiseSuicideRisk: InitialiseSuicideRisk) = suicideRiskService.initialiseSuicideRisk(initialiseSuicideRisk)
+  fun initialiseSuicideRisk(@Valid @RequestBody initialiseSuicideRisk: InitialiseSuicideRisk) = suicideRiskService.initialiseSuicideRisk(initialiseSuicideRisk)
 
   @PutMapping("/{id}")
   @Operation(
