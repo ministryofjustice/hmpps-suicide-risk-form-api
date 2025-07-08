@@ -6,8 +6,6 @@ Authorization: Basic hmpps-typescript-template-system clientsecret
     client.global.set("token", response.body.access_token);
 %}
 
-<> 2025-06-25T185655.200.json
-<> 2025-06-25T185353.200.json
 
 ### Insert a new suicide risk form
 POST http://localhost:8080/suicide-risk
