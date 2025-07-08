@@ -1,11 +1,11 @@
 package uk.gov.justice.digital.hmpps.suicideriskformapi.integration
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import uk.gov.justice.digital.hmpps.suicideriskformapi.model.Address
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.repository.SuicideRiskRepository
-import org.assertj.core.api.Assertions.assertThat
-import uk.gov.justice.digital.hmpps.suicideriskformapi.model.Address
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
@@ -77,7 +77,8 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
         status = "Postal",
         officeDescription = "anOfficeDescription",
         buildingName = "MOO",
-      ),)
+      ),
+    )
 
     webTestClient.put()
       .uri("/suicide-risk/" + suicideRisk.id)
@@ -105,7 +106,6 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
       .expectStatus().isBadRequest
       .expectBody().jsonPath("$.userMessage").isEqualTo("""Field: crn - must match "^[A-Z][0-9]{6}"""")
   }
-
 
   @Test
   fun `should delete a suicide risk`() {

@@ -3,11 +3,9 @@ package uk.gov.justice.digital.hmpps.suicideriskformapi.model
 import com.fasterxml.jackson.annotation.JsonSetter
 import com.fasterxml.jackson.annotation.Nulls
 import jakarta.validation.constraints.Pattern
-import uk.gov.justice.digital.hmpps.suicideriskformapi.entity.AddressEntity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
-import java.util.*
 
 data class SuicideRisk(
   @field:Pattern(regexp = "^[A-Z][0-9]{6}")
@@ -20,7 +18,7 @@ data class SuicideRisk(
   var completedDate: ZonedDateTime? = null,
   var natureOfRisk: String? = null,
   var riskIsGreatestWhen: String? = null,
-  var riskIncreasesWhen: String? =null,
+  var riskIncreasesWhen: String? = null,
   var riskDecreasesWhen: String? = null,
   var additionalInfo: String? = null,
   var currentPsychTreatment: String? = null,
@@ -36,5 +34,5 @@ data class SuicideRisk(
   var reviewRequiredDate: LocalDateTime? = null,
   var reviewEvent: String? = null,
   @field:JsonSetter(nulls = Nulls.AS_EMPTY)
-  var suicideRiskContactList: List<Contact> = emptyList()
+  var suicideRiskContactList: List<Contact> = emptyList(),
 )

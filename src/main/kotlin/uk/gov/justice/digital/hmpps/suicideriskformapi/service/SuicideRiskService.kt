@@ -33,7 +33,7 @@ class SuicideRiskService(
     val suicideRiskEntity: SuicideRiskEntity = suicideRiskRepository.findByIdOrNull(id) ?: throw NotFoundException(
       "SuicideRiskEntity",
       "id",
-      id
+      id,
     )
     return suicideRiskEntity.toModel()
   }
@@ -53,7 +53,7 @@ class SuicideRiskService(
     return suicideRiskRepository.deleteById(id)
   }
 
-  private fun SuicideRisk.toEntity(existingEntity: SuicideRiskEntity? = null) = existingEntity?.copy (
+  private fun SuicideRisk.toEntity(existingEntity: SuicideRiskEntity? = null) = existingEntity?.copy(
     crn = crn,
     titleAndFullName = titleAndFullName,
     dateOfLetter = dateOfLetter,
@@ -79,14 +79,14 @@ class SuicideRiskService(
     reviewRequiredDate = reviewRequiredDate,
     reviewEvent = reviewEvent,
     suicideRiskContactList = suicideRiskContactList.map {
-    it.toEntity(
-      existingEntity.suicideRiskContactList.find { existingContactEnitiy ->
-        existingContactEnitiy.id == it.id
-      },
-    )
+      it.toEntity(
+        existingEntity.suicideRiskContactList.find { existingContactEnitiy ->
+          existingContactEnitiy.id == it.id
+        },
+      )
     },
   )?.also { suicideRisk ->
-  suicideRisk.suicideRiskContactList.forEach { it.suicideRisk = suicideRisk }
+    suicideRisk.suicideRiskContactList.forEach { it.suicideRisk = suicideRisk }
   } ?: SuicideRiskEntity(
     crn = crn,
     titleAndFullName = titleAndFullName,
@@ -115,7 +115,7 @@ class SuicideRiskService(
     suicideRiskContactList = suicideRiskContactList.map { it.toEntity() },
   )
 
-  private fun SuicideRiskEntity.toModel() = SuicideRisk (
+  private fun SuicideRiskEntity.toModel() = SuicideRisk(
     crn = crn,
     titleAndFullName = titleAndFullName,
     dateOfLetter = dateOfLetter,
@@ -189,15 +189,15 @@ class SuicideRiskService(
     formSent = formSent,
   )
 
-    private fun Contact.toEntity(existingEntity: ContactEntity? = null) = existingEntity?.copy(
-      contactTypeDescription = contactTypeDescription,
-      contactPerson = contactPerson,
-      contactLocation = contactLocation?.toEntity(),
-      formSent = formSent,
+  private fun Contact.toEntity(existingEntity: ContactEntity? = null) = existingEntity?.copy(
+    contactTypeDescription = contactTypeDescription,
+    contactPerson = contactPerson,
+    contactLocation = contactLocation?.toEntity(),
+    formSent = formSent,
   ) ?: ContactEntity(
-      contactTypeDescription = contactTypeDescription,
-      contactPerson = contactPerson,
-      contactLocation = contactLocation?.toEntity(),
-      formSent = formSent,
+    contactTypeDescription = contactTypeDescription,
+    contactPerson = contactPerson,
+    contactLocation = contactLocation?.toEntity(),
+    formSent = formSent,
   )
 }

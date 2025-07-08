@@ -22,88 +22,88 @@ class HmppsSuicideRiskApiExceptionHandler {
   fun handleValidationException(e: ValidationException): ResponseEntity<ErrorResponse> = ResponseEntity
     .status(BAD_REQUEST)
     .body(
-        ErrorResponse(
-            status = BAD_REQUEST,
-            userMessage = "Validation failure: ${e.message}",
-            developerMessage = e.message,
-        ),
+      ErrorResponse(
+        status = BAD_REQUEST,
+        userMessage = "Validation failure: ${e.message}",
+        developerMessage = e.message,
+      ),
     ).also { log.info("Validation exception: {}", e.message) }
 
   @ExceptionHandler(IllegalArgumentException::class)
   fun handleIllegalArgumentException(e: IllegalArgumentException): ResponseEntity<ErrorResponse> = ResponseEntity
     .status(BAD_REQUEST)
     .body(
-        ErrorResponse(
-            status = BAD_REQUEST,
-            userMessage = "Validation failure: ${e.message}",
-            developerMessage = e.message,
-        ),
+      ErrorResponse(
+        status = BAD_REQUEST,
+        userMessage = "Validation failure: ${e.message}",
+        developerMessage = e.message,
+      ),
     ).also { log.info("Illegal argument exception: {}", e.message) }
 
   @ExceptionHandler(MethodArgumentTypeMismatchException::class)
   fun handleMethodArgumentTypeMismatchException(e: MethodArgumentTypeMismatchException): ResponseEntity<ErrorResponse> = ResponseEntity
     .status(BAD_REQUEST)
     .body(
-        ErrorResponse(
-            status = BAD_REQUEST,
-            userMessage = "Validation failure: ${e.message}",
-            developerMessage = e.message,
-        ),
+      ErrorResponse(
+        status = BAD_REQUEST,
+        userMessage = "Validation failure: ${e.message}",
+        developerMessage = e.message,
+      ),
     ).also { log.info("Method type exception: {}", e.message) }
 
   @ExceptionHandler(MethodArgumentNotValidException::class)
   fun handleMethodArgumentNotValidException(e: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> = ResponseEntity
     .status(BAD_REQUEST)
     .body(
-        ErrorResponse(
-            status = BAD_REQUEST,
-            userMessage = e.bindingResult.fieldErrors.joinToString { "Field: ${it.field} - ${it.defaultMessage}" },
-            developerMessage = e.message,
-        ),
+      ErrorResponse(
+        status = BAD_REQUEST,
+        userMessage = e.bindingResult.fieldErrors.joinToString { "Field: ${it.field} - ${it.defaultMessage}" },
+        developerMessage = e.message,
+      ),
     ).also { log.info("Method validation exception: {}", e.message) }
 
   @ExceptionHandler(NoResourceFoundException::class)
   fun handleNoResourceFoundException(e: NoResourceFoundException): ResponseEntity<ErrorResponse> = ResponseEntity
     .status(NOT_FOUND)
     .body(
-        ErrorResponse(
-            status = NOT_FOUND,
-            userMessage = "No resource found failure: ${e.message}",
-            developerMessage = e.message,
-        ),
+      ErrorResponse(
+        status = NOT_FOUND,
+        userMessage = "No resource found failure: ${e.message}",
+        developerMessage = e.message,
+      ),
     ).also { log.info("No resource found exception: {}", e.message) }
 
   @ExceptionHandler(NotFoundException::class)
   fun handleNotFound(e: NotFoundException): ResponseEntity<ErrorResponse> = ResponseEntity
     .status(NOT_FOUND)
     .body(
-        ErrorResponse(
-            status = NOT_FOUND,
-            userMessage = "No resource found failure: ${e.message}",
-            developerMessage = e.message,
-        ),
+      ErrorResponse(
+        status = NOT_FOUND,
+        userMessage = "No resource found failure: ${e.message}",
+        developerMessage = e.message,
+      ),
     ).also { log.info("Not found exception: {}", e.message) }
 
   @ExceptionHandler(AccessDeniedException::class)
   fun handleAccessDeniedException(e: AccessDeniedException): ResponseEntity<ErrorResponse> = ResponseEntity
     .status(FORBIDDEN)
     .body(
-        ErrorResponse(
-            status = FORBIDDEN,
-            userMessage = "Forbidden: ${e.message}",
-            developerMessage = e.message,
-        ),
+      ErrorResponse(
+        status = FORBIDDEN,
+        userMessage = "Forbidden: ${e.message}",
+        developerMessage = e.message,
+      ),
     ).also { log.debug("Forbidden (403) returned: {}", e.message) }
 
   @ExceptionHandler(Exception::class)
   fun handleException(e: Exception): ResponseEntity<ErrorResponse> = ResponseEntity
     .status(INTERNAL_SERVER_ERROR)
     .body(
-        ErrorResponse(
-            status = INTERNAL_SERVER_ERROR,
-            userMessage = "Unexpected error: ${e.message}",
-            developerMessage = e.message,
-        ),
+      ErrorResponse(
+        status = INTERNAL_SERVER_ERROR,
+        userMessage = "Unexpected error: ${e.message}",
+        developerMessage = e.message,
+      ),
     ).also { log.error("Unexpected exception", e) }
 
   private companion object {

@@ -25,7 +25,7 @@ import java.util.*
 
 @Validated
 @RestController
-//@PreAuthorize("hasRole('ROLE_SUICIDE_RISK')") TODO: create PR for hmpps auth
+// @PreAuthorize("hasRole('ROLE_SUICIDE_RISK')") TODO: create PR for hmpps auth
 @RequestMapping(value = ["/suicide-risk"], produces = ["application/json"])
 class SuicideRiskController(
   private val suicideRiskService: SuicideRiskService,

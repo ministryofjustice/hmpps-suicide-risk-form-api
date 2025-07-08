@@ -33,7 +33,7 @@ data class SuicideRiskEntity(
   var completedDate: ZonedDateTime? = null,
   var natureOfRisk: String? = null,
   var riskIsGreatestWhen: String? = null,
-  var riskIncreasesWhen: String? =null,
+  var riskIncreasesWhen: String? = null,
   var riskDecreasesWhen: String? = null,
   var additionalInfo: String? = null,
   var currentPsychTreatment: String? = null,
