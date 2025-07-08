@@ -54,7 +54,7 @@ class SuicideRiskController(
   @PostMapping
   @Operation(
     summary = "Initialises a Suicide Risk",
-    description = "Calls through the suicide risk service to initialise a breach notice",
+    description = "Calls the API to initialise a suicide risk form",
     security = [SecurityRequirement(name = "suicide-risk-api-ui-role")],
     responses = [
       ApiResponse(responseCode = "201", description = "suicide risk created"),
