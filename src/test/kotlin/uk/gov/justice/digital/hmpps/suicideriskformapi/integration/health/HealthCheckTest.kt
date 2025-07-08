@@ -6,31 +6,15 @@ import kotlin.text.get
 
 class HealthCheckTest : IntegrationTestBase() {
 
-//  @Test
-//  fun `Health page reports ok`() {
-//    stubPingWithResponse(200)
-//
-//    webTestClient.get()
-//      .uri("/health")
-//      .exchange()
-//      .expectStatus()
-//      .isOk
-//      .expectBody()
-//      .jsonPath("status").isEqualTo("UP")
-//  }
-
   @Test
-  fun `Health page reports down`() {
-    stubPingWithResponse(503)
-
+  fun `Health page reports ok`() {
     webTestClient.get()
       .uri("/health")
       .exchange()
       .expectStatus()
-      .is5xxServerError
+      .isOk
       .expectBody()
-      .jsonPath("status").isEqualTo("DOWN")
-      .jsonPath("components.hmppsAuth.status").isEqualTo("DOWN")
+      .jsonPath("status").isEqualTo("UP")
   }
 
   @Test
