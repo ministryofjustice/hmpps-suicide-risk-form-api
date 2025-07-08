@@ -2,6 +2,7 @@ package uk.gov.justice.digital.hmpps.suicideriskformapi.integration.health
 
 import org.junit.jupiter.api.Test
 import uk.gov.justice.digital.hmpps.suicideriskformapi.integration.IntegrationTestBase
+import kotlin.text.get
 
 class HealthCheckTest : IntegrationTestBase() {
 
@@ -17,6 +18,17 @@ class HealthCheckTest : IntegrationTestBase() {
 //      .expectBody()
 //      .jsonPath("status").isEqualTo("UP")
 //  }
+
+  @Test
+  fun `Health page reports ok`() {
+    webTestClient.get()
+      .uri("/health")
+      .exchange()
+      .expectStatus()
+      .isOk
+      .expectBody()
+      .jsonPath("status").isEqualTo("UP")
+  }
 
   @Test
   fun `Health page reports down`() {

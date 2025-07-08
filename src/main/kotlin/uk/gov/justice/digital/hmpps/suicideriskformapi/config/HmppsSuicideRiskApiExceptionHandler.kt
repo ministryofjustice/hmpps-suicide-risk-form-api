@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 import org.springframework.web.servlet.resource.NoResourceFoundException
-import uk.gov.justice.digital.hmpps.breachnoticeapi.exception.NotFoundException
+import uk.gov.justice.digital.hmpps.suicideriskformapi.exception.NotFoundException
 import uk.gov.justice.hmpps.kotlin.common.ErrorResponse
-import kotlin.also
-import kotlin.collections.joinToString
-import kotlin.jvm.java
 
 @RestControllerAdvice
 class HmppsSuicideRiskApiExceptionHandler {

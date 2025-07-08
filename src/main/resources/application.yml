@@ -83,4 +83,4 @@ hmpps-auth.url: http://localhost:9101/auth
 frontend.url: http://localhost:3000
 gotenberg.url: http://localhost:9101
 ndelius-integration-api.url: http://localhost:9101
-spring.datasource.url: jdbc:tc:postgresql:17:///breachdb
+spring.datasource.url: jdbc:tc:postgresql:17:///db

@@ -108,7 +108,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
 
 
   @Test
-  fun `should delete a breach notice`() {
+  fun `should delete a suicide risk`() {
     webTestClient.post()
       .uri("/suicide-risk")
       .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
