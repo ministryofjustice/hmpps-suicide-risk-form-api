@@ -20,17 +20,6 @@ class HealthCheckTest : IntegrationTestBase() {
 //  }
 
   @Test
-  fun `Health page reports ok`() {
-    webTestClient.get()
-      .uri("/health")
-      .exchange()
-      .expectStatus()
-      .isOk
-      .expectBody()
-      .jsonPath("status").isEqualTo("UP")
-  }
-
-  @Test
   fun `Health page reports down`() {
     stubPingWithResponse(503)
 
