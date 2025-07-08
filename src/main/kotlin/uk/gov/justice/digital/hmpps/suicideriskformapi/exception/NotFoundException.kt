@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.breachnoticeapi.exception
+package uk.gov.justice.digital.hmpps.suicideriskformapi.exception
 
 open class NotFoundException(message: String) : RuntimeException(message) {
   constructor(

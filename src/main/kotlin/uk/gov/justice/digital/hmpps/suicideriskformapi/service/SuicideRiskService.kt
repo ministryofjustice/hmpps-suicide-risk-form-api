@@ -2,14 +2,12 @@ package uk.gov.justice.digital.hmpps.suicideriskformapi.service
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import uk.gov.justice.digital.hmpps.breachnoticeapi.exception.NotFoundException
 import uk.gov.justice.digital.hmpps.suicideriskformapi.entity.AddressEntity
 import uk.gov.justice.digital.hmpps.suicideriskformapi.entity.ContactEntity
 import uk.gov.justice.digital.hmpps.suicideriskformapi.entity.SuicideRiskEntity
+import uk.gov.justice.digital.hmpps.suicideriskformapi.exception.NotFoundException
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.Address
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.Contact
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.CreateResponse
@@ -28,11 +26,15 @@ class SuicideRiskService(
   fun initialiseSuicideRisk(initialiseSuicideRisk: InitialiseSuicideRisk) = suicideRiskRepository.save(
     SuicideRiskEntity(crn = initialiseSuicideRisk.crn),
   ).id.let {
-    CreateResponse(it, "$frontendUrl/breach-notice/$it")
+    CreateResponse(it, "$frontendUrl/basic-details/$it")
   }
 
   fun findSuicideRiskById(id: UUID): SuicideRisk {
-    val suicideRiskEntity: SuicideRiskEntity = suicideRiskRepository.findByIdOrNull(id) ?: throw NotFoundException("SuicideRiskEntity", "id", id)
+    val suicideRiskEntity: SuicideRiskEntity = suicideRiskRepository.findByIdOrNull(id) ?: throw NotFoundException(
+      "SuicideRiskEntity",
+      "id",
+      id
+    )
     return suicideRiskEntity.toModel()
   }
 
@@ -44,13 +46,10 @@ class SuicideRiskService(
 
   @Transactional
   fun deleteSuicideRisk(id: UUID): Any? {
-    val suicideRiskEntity = suicideRiskRepository.findByIdOrNull(id)
-    if (suicideRiskRepository.findByIdOrNull(id) == null) {
-      return ResponseEntity(
-        "The Suicide Risk id was not found",
-        HttpStatus.NOT_FOUND,
-      )
+    if (!suicideRiskRepository.existsById(id)) {
+      throw NotFoundException("SuicideRiskEntity", "id", id)
     }
+
     return suicideRiskRepository.deleteById(id)
   }
 
