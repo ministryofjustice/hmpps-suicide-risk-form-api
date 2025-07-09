@@ -128,7 +128,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
       .expectStatus()
       .isOk
 
-    val purgedBreachNotice = suicideRiskRepository.findById(suicideRisk.first().id)
-    assertThat(purgedBreachNotice.isEmpty)
+    val purgedSuicideRisk = suicideRiskRepository.findById(suicideRisk.first().id)
+    assertThat(purgedSuicideRisk.isEmpty)
   }
 }
