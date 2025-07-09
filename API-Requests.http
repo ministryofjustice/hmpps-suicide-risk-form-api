@@ -1,0 +1,19 @@
+# curl -X POST -u 'hmpps-typescript-template-system:clientsecret' "http://localhost:9090/auth/oauth/token?grant_type=client_credentials"
+POST http://localhost:9090/auth/oauth/token?grant_type=client_credentials
+Authorization: Basic hmpps-typescript-template-system clientsecret
+
+> {%
+    client.global.set("token", response.body.access_token);
+%}
+
+
+### Insert a new suicide risk form
+POST http://localhost:8080/suicide-risk
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "crn": "X012345"
+}
+
+<> 2025-06-25T185700.201.json
