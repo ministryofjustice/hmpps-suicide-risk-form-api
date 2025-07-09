@@ -128,6 +128,6 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
       .expectStatus()
       .isOk
 
-    assertThat(suicideRiskRepository.findById(suicideRisk.first().id)).isNull()
+    assertThat(suicideRiskRepository.findById(suicideRisk.first().id)).isEmpty
   }
 }
