@@ -11,6 +11,14 @@ generic-service:
     APPLICATIONINSIGHTS_CONFIGURATION_FILE: "applicationinsights.dev.json"
     HMPPS_AUTH_URL: "https://sign-in-dev.hmpps.service.justice.gov.uk/auth"
 
+  allowlist:
+    groups:
+      - internal
+      - unilink_staff
+    delius-test-1: 35.176.126.163/32
+    delius-test-2: 35.178.162.73/32
+    delius-test-3: 52.56.195.113/32
+
 # CloudPlatform AlertManager receiver to route prometheus alerts to slack
 # See https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/how-to-create-alarms.html#creating-your-own-custom-alerts
 generic-prometheus-alerts:
