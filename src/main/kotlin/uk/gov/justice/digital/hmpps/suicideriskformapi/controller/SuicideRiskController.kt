@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -27,7 +26,7 @@ import java.util.*
 
 @Validated
 @RestController
-//@PreAuthorize("hasRole('ROLE_SUICIDE_RISK')")
+// @PreAuthorize("hasRole('ROLE_SUICIDE_RISK')")
 @RequestMapping(value = ["/suicide-risk"], produces = ["application/json"])
 class SuicideRiskController(
   private val suicideRiskService: SuicideRiskService,
@@ -106,7 +105,7 @@ class SuicideRiskController(
     ],
   )
   fun updateSuicideRisk(@PathVariable id: UUID, @RequestBody suicideRisk: SuicideRisk) {
-    val original = suicideRiskService.findSuicideRiskById(id);
+    val original = suicideRiskService.findSuicideRiskById(id)
     suicideRiskService.updateSuicideRisk(id, suicideRisk)
 
     if (original != null && original.completedDate == null && suicideRisk.completedDate != null) {

@@ -160,7 +160,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
     assertThat(updatedSuicideRisk.currentPsychTreatment).isEqualTo("Frog removal")
     assertThat(updatedSuicideRisk.basicDetailsSaved).isEqualTo(true)
     assertThat(updatedSuicideRisk.workAddressEntity?.officeDescription).isEqualTo("anOfficeDescription")
-    assertThat(updatedSuicideRisk.completedDate).isNotNull();
+    assertThat(updatedSuicideRisk.completedDate).isNotNull()
   }
 
   @Test
