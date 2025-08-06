@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.InitialiseSuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk
+import uk.gov.justice.digital.hmpps.suicideriskformapi.service.SnsService
 import uk.gov.justice.digital.hmpps.suicideriskformapi.service.SuicideRiskService
 import uk.gov.justice.hmpps.kotlin.common.ErrorResponse
 import java.util.*
@@ -30,6 +31,7 @@ import java.util.*
 @RequestMapping(value = ["/suicide-risk"], produces = ["application/json"])
 class SuicideRiskController(
   private val suicideRiskService: SuicideRiskService,
+  private val sqsService: SnsService,
 ) {
   @GetMapping("/{uuid}")
   @Operation(
@@ -104,7 +106,12 @@ class SuicideRiskController(
     ],
   )
   fun updateSuicideRisk(@PathVariable id: UUID, @RequestBody suicideRisk: SuicideRisk) {
+    val original = suicideRiskService.findSuicideRiskById(id)
     suicideRiskService.updateSuicideRisk(id, suicideRisk)
+
+    if (original != null && original.completedDate == null && suicideRisk.completedDate != null) {
+      sqsService.sendPublishDomainEvent(suicideRisk, id)
+    }
   }
 
   @DeleteMapping("/{id}")
