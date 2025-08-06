@@ -18,7 +18,7 @@ import java.util.UUID
 data class AddressEntity(
   @Id
   val id: UUID = UUID.randomUUID(),
-  val addressId: Long,
+  val addressId: Long?,
   val status: String? = null,
   val officeDescription: String? = null,
   val buildingName: String? = null,

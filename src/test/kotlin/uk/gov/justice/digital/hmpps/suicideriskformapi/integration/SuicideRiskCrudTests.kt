@@ -97,6 +97,73 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
   }
 
   @Test
+  fun `should update a Suicide Risk to completed`() {
+    webTestClient.post()
+      .uri("/suicide-risk")
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+      .bodyValue(SuicideRisk(crn = "X600002"))
+      .exchange()
+      .expectStatus()
+      .isCreated
+
+    val suicideRisk = suicideRiskRepository.findByCrn("X600002").single()
+    assertThat(suicideRisk.crn).isEqualTo("X600002")
+
+    val suicideRiskBody = SuicideRisk(
+      crn = "X600002",
+      natureOfRisk = "Risky Business",
+      riskIsGreatestWhen = "Risk Greatest",
+      riskIncreasesWhen = "Bad Things Happen",
+      riskDecreasesWhen = "Good Things Happen",
+      sheetSentBy = "Joe Bloggs",
+      titleAndFullName = "Mr Henry Bean",
+      postalAddress = Address(
+        addressId = 25,
+        status = "Postal",
+        officeDescription = null,
+        buildingName = "MOO",
+      ),
+      completedDate = ZonedDateTime.now(),
+      reviewEvent = "Merge",
+      reviewRequiredDate = LocalDateTime.now(),
+      basicDetailsSaved = true,
+      informationSaved = false,
+      contactSaved = false,
+      treatmentSaved = false,
+      signAndSendSaved = false,
+      prisonNumber = "123456",
+      dateOfLetter = LocalDate.now(),
+      telephoneNumber = "01911234560",
+      signature = "testsignature",
+      additionalInfo = "someAdditionalInformation",
+      currentPsychTreatment = "Frog removal",
+      dateOfBirth = LocalDate.now(),
+      workAddress = Address(
+        addressId = 66,
+        status = "Postal",
+        officeDescription = "anOfficeDescription",
+        buildingName = "MOO",
+      ),
+    )
+
+    webTestClient.put()
+      .uri("/suicide-risk/" + suicideRisk.id)
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+      .bodyValue(suicideRiskBody)
+      .exchange()
+      .expectStatus()
+      .isOk
+
+    val updatedSuicideRisk = suicideRiskRepository.findByCrn("X600002").single()
+    assertThat(updatedSuicideRisk.crn).isEqualTo("X600002")
+    assertThat(updatedSuicideRisk.reviewEvent).isEqualTo("Merge")
+    assertThat(updatedSuicideRisk.currentPsychTreatment).isEqualTo("Frog removal")
+    assertThat(updatedSuicideRisk.basicDetailsSaved).isEqualTo(true)
+    assertThat(updatedSuicideRisk.workAddressEntity?.officeDescription).isEqualTo("anOfficeDescription")
+    assertThat(updatedSuicideRisk.completedDate).isNotNull();
+  }
+
+  @Test
   fun `should fail to create if the crn is too long`() {
     webTestClient.post()
       .uri("/suicide-risk")

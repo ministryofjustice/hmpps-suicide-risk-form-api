@@ -84,3 +84,24 @@ frontend.url: http://localhost:3000
 gotenberg.url: http://localhost:9101
 ndelius-integration-api.url: http://localhost:9101
 spring.datasource.url: jdbc:tc:postgresql:17:///db
+
+---
+spring.config.activate.on-profile: [test, dev]
+hmpps.sqs:
+  provider: localstack
+  queues:
+    hmppssuicideriskformqueue:
+      queueName: hmpps-suicide-risk-form-queue
+      dlqName: hmpps-suicide-risk-form-queue-dlq
+      subscribeTopicId: hmppssuicideriskformtopic
+    hmppssuicideriskformpublishqueue:
+      queueName: hmpps-suicide-risk-form-publish-queue
+      dlqName: hmpps-suicide-risk-form-publish-queue-dlq
+      subscribeTopicId: hmppssuicideriskformpublishtopic
+    audit:
+      queueName: audit-queue
+  topics:
+    hmppssuicideriskformtopic:
+      arn: arn:aws:sns:eu-west-2:000000000000:hmppssuicideriskformtopic
+    hmppssuicideriskformpublishtopic:
+      arn: arn:aws:sns:eu-west-2:000000000000:hmppssuicideriskformpublishtopic
