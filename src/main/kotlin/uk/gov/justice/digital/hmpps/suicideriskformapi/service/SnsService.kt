@@ -14,6 +14,7 @@ import uk.gov.justice.digital.hmpps.suicideriskformapi.model.PersonReference
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk
 import uk.gov.justice.hmpps.sqs.HmppsQueueService
 import uk.gov.justice.hmpps.sqs.MissingQueueException
+import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -29,7 +30,7 @@ class SnsService(
     val messageObject = DomainEventsMessage(
       description = "A suicide risk form has been completed for a person on probation",
       version = 1,
-      occurredAt = ZonedDateTime.now(),
+      occurredAt = ZonedDateTime.now(ZoneId.of("Europe/London")),
       eventType = "probation-case.suicide-risk-form.created",
       personReference = PersonReference(listOf(Identifiers(type = "crn", value = breachNotice.crn))),
       detailUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/suicide-risk/" + id + "/pdf",
