@@ -19,6 +19,7 @@ import java.util.*
 @Service
 class SuicideRiskService(
   val suicideRiskRepository: SuicideRiskRepository,
+  val pdfGenerationService: PdfGenerationService,
   @Value("\${frontend.url}") val frontendUrl: String,
 ) {
 
@@ -51,6 +52,18 @@ class SuicideRiskService(
     }
 
     return suicideRiskRepository.deleteById(id)
+  }
+
+  fun getSuicideRiskAsPdf(id: UUID, suicideRisk: SuicideRisk?, draft: Boolean): ByteArray? {
+    val html = pdfGenerationService.generateHtml(suicideRisk)
+
+    var pdfBytes = pdfGenerationService.generatePdf(html)
+
+    if (draft) {
+      pdfBytes = pdfGenerationService.addWatermark(pdfBytes)
+    }
+
+    return pdfBytes
   }
 
   private fun SuicideRisk.toEntity(existingEntity: SuicideRiskEntity? = null) = existingEntity?.copy(

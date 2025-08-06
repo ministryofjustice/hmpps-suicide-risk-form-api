@@ -6,7 +6,11 @@ import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
+import org.springframework.http.ContentDisposition
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -20,9 +24,10 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.InitialiseSuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk
+import uk.gov.justice.digital.hmpps.suicideriskformapi.service.SnsService
 import uk.gov.justice.digital.hmpps.suicideriskformapi.service.SuicideRiskService
 import uk.gov.justice.hmpps.kotlin.common.ErrorResponse
-import java.util.*
+import java.util.UUID
 
 @Validated
 @RestController
@@ -30,6 +35,7 @@ import java.util.*
 @RequestMapping(value = ["/suicide-risk"], produces = ["application/json"])
 class SuicideRiskController(
   private val suicideRiskService: SuicideRiskService,
+  private val sqsService: SnsService,
 ) {
   @GetMapping("/{uuid}")
   @Operation(
@@ -104,7 +110,12 @@ class SuicideRiskController(
     ],
   )
   fun updateSuicideRisk(@PathVariable id: UUID, @RequestBody suicideRisk: SuicideRisk) {
+    val original = suicideRiskService.findSuicideRiskById(id)
     suicideRiskService.updateSuicideRisk(id, suicideRisk)
+
+    if (original != null && original.completedDate == null && suicideRisk.completedDate != null) {
+      sqsService.sendPublishDomainEvent(suicideRisk, id)
+    }
   }
 
   @DeleteMapping("/{id}")
@@ -133,5 +144,33 @@ class SuicideRiskController(
   )
   fun deleteSuicideRisk(@PathVariable id: UUID) {
     suicideRiskService.deleteSuicideRisk(id)
+  }
+
+  @GetMapping("/{uuid}/pdf")
+  @Operation(
+    summary = "Retrieve a suicide risk pdf by uuid - suicide risk id",
+    description = "Calls through the suicide risk form service to retrieve a generate ",
+    security = [SecurityRequirement(name = "suicide-risk-form-api-ui-role")],
+    responses = [
+      ApiResponse(responseCode = "200", description = "breach notice pdf returned"),
+      ApiResponse(
+        responseCode = "401",
+        description = "Unauthorized to access this endpoint",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+      ApiResponse(
+        responseCode = "403",
+        description = "Forbidden to access this endpoint",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+    ],
+  )
+  fun getSuicideRiskAsPdf(@PathVariable uuid: UUID): ResponseEntity<ByteArray> {
+    var suicideRisk = suicideRiskService.findSuicideRiskById(uuid)
+    var pdfBytes = suicideRiskService.getSuicideRiskAsPdf(uuid, suicideRisk, suicideRisk.completedDate == null)
+    var headers = HttpHeaders()
+    headers.contentType = MediaType.APPLICATION_PDF
+    headers.contentDisposition = ContentDisposition.attachment().filename("Suicide_Risk_Form_" + suicideRisk?.crn + ".pdf").build()
+    return ResponseEntity.ok().headers(headers).body(pdfBytes)
   }
 }
