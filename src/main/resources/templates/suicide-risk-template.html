@@ -54,7 +54,7 @@
     </tr>
     <tr>
       <th>Age in Years</th>
-      <td><span th:text="${T(java.time.Period).between(suicideRisk.dateOfBirth, T(java.time.LocalDate).now()).getYears()}"></span>
+      <td><span th:if="${suicideRisk.dateOfBirth != null}" th:text="${T(java.time.Period).between(suicideRisk.dateOfBirth, T(java.time.LocalDate).now()).getYears()}"></span>
       </td>
     </tr>
     <tr>
