@@ -123,36 +123,136 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>Other colleagues</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td>Prison Establishment</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td>Police (Custody Cells)</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td>Medical Services</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
-    <tr>
-      <td>Other Agency</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-    </tr>
+      <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'other_colleagues']}">
+        <td><span th:if="${iterStat.index == 0}">Other colleagues</span></td>
+        <td><span th:text="${con.contactPerson}"></span></td>
+        <td><span>
+						<div th:if="${con.contactLocation != null}">
+							<p style="margin: 0;"><span th:if="${con.contactLocation.officeDescription != null}"
+                                          th:text="${con.contactLocation.officeDescription}">{postalAddress.officeDescription}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.buildingName != null}"
+                                          th:text="${con.contactLocation.buildingName}">{postalAddress.buildingName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.addressNumber != null}"
+                                          th:text="${con.contactLocation.addressNumber}">{postalAddress.addressNumber}</span><span
+                th:if="${con.contactLocation.addressNumber != null}"> </span><span
+                th:if="${con.contactLocation.streetName != null}"
+                th:text="${con.contactLocation.streetName}">{postalAddress.streetName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.district != null}"
+                                          th:text="${con.contactLocation.district}">{postalAddress.district}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.townCity != null}"
+                                          th:text="${con.contactLocation.townCity}">{postalAddress.buildingName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.county != null}"
+                                          th:text="${con.contactLocation.county}">{postalAddress.county}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.postcode != null}"
+                                          th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
+						</div>
+                    </span></td>
+        <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
+      </tr>
+      <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'prison_establishment']}">
+        <td><span th:if="${iterStat.index == 0}">Prison Establishment</span></td>
+        <td><span th:text="${con.contactPerson}"></span></td>
+        <td><span>
+						<div th:if="${con.contactLocation != null}">
+							<p style="margin: 0;"><span th:if="${con.contactLocation.officeDescription != null}"
+                                          th:text="${con.contactLocation.officeDescription}">{postalAddress.officeDescription}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.buildingName != null}"
+                                          th:text="${con.contactLocation.buildingName}">{postalAddress.buildingName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.addressNumber != null}"
+                                          th:text="${con.contactLocation.addressNumber}">{postalAddress.addressNumber}</span><span
+                th:if="${con.contactLocation.addressNumber != null}"> </span><span
+                th:if="${con.contactLocation.streetName != null}"
+                th:text="${con.contactLocation.streetName}">{postalAddress.streetName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.district != null}"
+                                          th:text="${con.contactLocation.district}">{postalAddress.district}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.townCity != null}"
+                                          th:text="${con.contactLocation.townCity}">{postalAddress.buildingName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.county != null}"
+                                          th:text="${con.contactLocation.county}">{postalAddress.county}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.postcode != null}"
+                                          th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
+						</div>
+                    </span></td>
+        <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
+      </tr>
+      <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'police_custody_cells']}">
+        <td><span th:if="${iterStat.index == 0}">Police (Custody Cells)</span></td>
+        <td><span th:text="${con.contactPerson}"></span></td>
+        <td><span>
+						<div th:if="${con.contactLocation != null}">
+							<p style="margin: 0;"><span th:if="${con.contactLocation.officeDescription != null}"
+                                          th:text="${con.contactLocation.officeDescription}">{postalAddress.officeDescription}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.buildingName != null}"
+                                          th:text="${con.contactLocation.buildingName}">{postalAddress.buildingName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.addressNumber != null}"
+                                          th:text="${con.contactLocation.addressNumber}">{postalAddress.addressNumber}</span><span
+                th:if="${con.contactLocation.addressNumber != null}"> </span><span
+                th:if="${con.contactLocation.streetName != null}"
+                th:text="${con.contactLocation.streetName}">{postalAddress.streetName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.district != null}"
+                                          th:text="${con.contactLocation.district}">{postalAddress.district}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.townCity != null}"
+                                          th:text="${con.contactLocation.townCity}">{postalAddress.buildingName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.county != null}"
+                                          th:text="${con.contactLocation.county}">{postalAddress.county}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.postcode != null}"
+                                          th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
+						</div>
+                    </span></td>
+        <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
+      </tr>
+      <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'medical_services']}">
+        <td><span th:if="${iterStat.index == 0}">Medical Services</span></td>
+        <td><span th:text="${con.contactPerson}"></span></td>
+        <td><span>
+						<div th:if="${con.contactLocation != null}">
+							<p style="margin: 0;"><span th:if="${con.contactLocation.officeDescription != null}"
+                                          th:text="${con.contactLocation.officeDescription}">{postalAddress.officeDescription}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.buildingName != null}"
+                                          th:text="${con.contactLocation.buildingName}">{postalAddress.buildingName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.addressNumber != null}"
+                                          th:text="${con.contactLocation.addressNumber}">{postalAddress.addressNumber}</span><span
+                th:if="${con.contactLocation.addressNumber != null}"> </span><span
+                th:if="${con.contactLocation.streetName != null}"
+                th:text="${con.contactLocation.streetName}">{postalAddress.streetName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.district != null}"
+                                          th:text="${con.contactLocation.district}">{postalAddress.district}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.townCity != null}"
+                                          th:text="${con.contactLocation.townCity}">{postalAddress.buildingName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.county != null}"
+                                          th:text="${con.contactLocation.county}">{postalAddress.county}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.postcode != null}"
+                                          th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
+						</div>
+                    </span></td>
+        <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
+      </tr>
+      <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'other_agency']}">
+        <td><span th:if="${iterStat.index == 0}">Other Agency</span></td>
+        <td><span th:text="${con.contactPerson}"></span></td>
+        <td><span>
+						<div th:if="${con.contactLocation != null}">
+							<p style="margin: 0;"><span th:if="${con.contactLocation.officeDescription != null}"
+                                          th:text="${con.contactLocation.officeDescription}">{postalAddress.officeDescription}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.buildingName != null}"
+                                          th:text="${con.contactLocation.buildingName}">{postalAddress.buildingName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.addressNumber != null}"
+                                          th:text="${con.contactLocation.addressNumber}">{postalAddress.addressNumber}</span><span
+                th:if="${con.contactLocation.addressNumber != null}"> </span><span
+                th:if="${con.contactLocation.streetName != null}"
+                th:text="${con.contactLocation.streetName}">{postalAddress.streetName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.district != null}"
+                                          th:text="${con.contactLocation.district}">{postalAddress.district}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.townCity != null}"
+                                          th:text="${con.contactLocation.townCity}">{postalAddress.buildingName}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.county != null}"
+                                          th:text="${con.contactLocation.county}">{postalAddress.county}</span></p>
+							<p style="margin: 0;"><span th:if="${con.contactLocation.postcode != null}"
+                                          th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
+						</div>
+                    </span></td>
+        <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
+      </tr>
     </tbody>
   </table>
 
@@ -214,222 +314,5 @@
     </tr>
   </table>
 
-
-  <!--
-  <table style="margin-right:9pt; margin-left:9pt; border-collapse:collapse;">
-    <tr style="height:62.4pt">
-      <td style="width:273.6pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
-        <p>
-          <span th:text="${suicideRisk.titleAndFullName}">{titleAndFullName}</span>
-        </p>
-        <br/>
-        <p>
-                	<span>
-						<div th:if="${breachNotice.offenderAddress != null}">
-							<p style="margin: 0;"><span th:if="${breachNotice.offenderAddress.officeDescription != null}"
-                                          th:text="${breachNotice.offenderAddress.officeDescription}">{offenderAddress.officeDescription}</span></p>
-							<p style="margin: 0;"><span th:if="${breachNotice.offenderAddress.buildingName != null}"
-                                          th:text="${breachNotice.offenderAddress.buildingName}">{offenderAddress.buildingName}</span></p>
-							<p style="margin: 0;"><span th:if="${breachNotice.offenderAddress.addressNumber != null}"
-                                          th:text="${breachNotice.offenderAddress.addressNumber}">{offenderAddress.addressNumber}</span><span
-                th:if="${breachNotice.offenderAddress.addressNumber != null}"> </span><span
-                th:if="${breachNotice.offenderAddress.streetName != null}"
-                th:text="${breachNotice.offenderAddress.streetName}">{offenderAddress.streetName}</span></p>
-							<p style="margin: 0;"><span th:if="${breachNotice.offenderAddress.district != null}"
-                                          th:text="${breachNotice.offenderAddress.district}">{offenderAddress.district}</span></p>
-							<p style="margin: 0;"><span th:if="${breachNotice.offenderAddress.townCity != null}"
-                                          th:text="${breachNotice.offenderAddress.townCity}">{offenderAddress.buildingName}</span></p>
-							<p style="margin: 0;"><span th:if="${breachNotice.offenderAddress.county != null}"
-                                          th:text="${breachNotice.offenderAddress.county}">{offenderAddress.county}</span></p>
-							<p style="margin: 0;"><span th:if="${breachNotice.offenderAddress.postcode != null}"
-                                          th:text="${breachNotice.offenderAddress.postcode}">{offenderAddress.postcode}</span></p>
-						</div>
-                    </span>
-        </p>
-      </td>
-      <td style="width:212.7pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
-        <br/>
-        <p>
-                	<span>
-						<div th:if="${breachNotice.replyAddress != null}">
-							<p style="margin: 0;"><span th:if="${breachNotice.replyAddress.officeDescription != null}" th:text="${breachNotice.replyAddress.officeDescription}">{replyAddress.officeDescription}</span></p>
-							<p style="margin: 0;"><span th:if="${breachNotice.replyAddress.buildingName != null}" th:text="${breachNotice.replyAddress.buildingName}">{replyAddress.buildingName}</span></p>
-							<p style="margin: 0;"><span th:if="${breachNotice.replyAddress.addressNumber != null}" th:text="${breachNotice.replyAddress.addressNumber}">{replyAddress.addressNumber}</span><span th:if="${breachNotice.replyAddress.addressNumber != null}"> </span><span th:if="${breachNotice.replyAddress.streetName != null}" th:text="${breachNotice.replyAddress.streetName}">{replyAddress.streetName}</span></p>
-							<p style="margin: 0;"><span th:if="${breachNotice.replyAddress.district != null}" th:text="${breachNotice.replyAddress.district}">{replyAddress.district}</span></p>
-							<p style="margin: 0;"><span th:if="${breachNotice.replyAddress.townCity != null}" th:text="${breachNotice.replyAddress.townCity}">{replyAddress.buildingName}</span></p>
-							<p style="margin: 0;"><span th:if="${breachNotice.replyAddress.county != null}" th:text="${breachNotice.replyAddress.county}">{replyAddress.county}</span></p>
-							<p style="margin: 0;"><span th:if="${breachNotice.replyAddress.postcode != null}" th:text="${breachNotice.replyAddress.postcode}">{replyAddress.postcode}</span></p>
-						</div>
-                    </span>
-        </p>
-      </td>
-    </tr>
-    <tr style="height:15pt">
-      <td style="border-top-style:solid; border-top-width:0.75pt; vertical-align:top">
-      </td>
-      <td style="width:212.7pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
-        <p style=" text-align:justify; font-size:11pt">
-          <span>CRN / Ref: </span>
-          <span>
-                        <span th:text="${breachNotice.crn}">{crn}</span> / <span th:text="${breachNotice.referenceNumber}">{ref}</span>
-                    </span>
-        </p>
-      </td>
-    </tr>
-    <tr style="height:17.7pt">
-      <td style="vertical-align:top">
-      </td>
-      <td style="width:212.7pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
-        <p>
-          <span>Date: </span>
-          <span><span th:text="${#temporals.format(breachNotice.dateOfLetter, 'dd/MM/yyyy')}">{dateOfLetter}</span></span>
-        </p>
-      </td>
-    </tr>
-  </table>
-  <br/>
-  <p>
-    <span>	Dear <span th:text="${breachNotice.titleAndFullName}">{titleAndFullName}</span></span>
-  </p>
-  <p style="margin-top:0; margin-left:7.1pt; margin-bottom:0; text-align:center; font-size:11pt">
-    <strong><span><span th:text="${breachNotice.breachNoticeTypeDescription}">{warningType}</span></span></strong>
-  </p>
-  <br/>
-  <table style="margin-left:5.4pt; border:0.75pt solid #000000; border-collapse:collapse">
-    <tr>
-      <td colspan="5"
-          style="width:496.3pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
-        <p>
-          <strong><span>DETAILS OF FAILURE TO COMPLY </span></strong><span>– :</span>
-        </p>
-        <p>
-          <span>Under the terms of your <span th:text="${breachNotice.breachSentenceTypeDescription}">{sentenceType}</span>, you failed to comply with the following requirement and or condition:</span><span></span>
-        </p>
-      </td>
-    </tr>
-    <tr>
-      <td style="width:111.15pt; border-top-style:solid; border-top-width:0.75pt; border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
-        <table>
-          <tr th:each="req: ${breachNotice.breachNoticeRequirementList}">
-            <p>
-              <span th:text="${req.requirementTypeMainCategoryDescription}">(Requirement Details)</span>
-              <span th:if="${req.requirementTypeSubCategoryDescription != null}" th:text="${' ' + req.requirementTypeSubCategoryDescription}">(Requirement Sub Category Details)</span>
-            </p>
-          </tr>
-        </table>
-      </td>
-      <td style="width:47.9pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
-        <p>
-          <span>On or between Date(s)</span>
-        </p>
-      </td>
-      <td style="width:106.75pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
-        <table>
-          <tr th:each="req: ${breachNotice.breachNoticeRequirementList}">
-            <p>
-              <span th:text="${#temporals.format(req.fromDate, 'dd/MM/yyyy')}">(From Date)</span>
-              <span th:if="${req.fromDate != req.toDate}" th:text="${' - ' + #temporals.format(req.toDate, 'dd/MM/yyyy')}">(To Date)</span>
-            </p>
-          </tr>
-        </table>
-      </td>
-      <td style="width:37.95pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
-        <p>
-          <span>Reason</span>
-        </p>
-      </td>
-      <td style="width:149.35pt; border-top-style:solid; border-top-width:0.75pt; border-left-style:solid; border-left-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
-        <table>
-          <tr th:each="req: ${breachNotice.breachNoticeRequirementList}">
-            <p>
-              <b><span th:text="${req.rejectionReason}">(Reason)</span></b>
-            </p>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr style="height:26pt">
-      <td colspan="5"
-          style="width:496.3pt; border-top-style:solid; border-top-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
-        <p>
-          <strong><span>Further Reason Details </span></strong><span>– :</span>
-        </p>
-        <p style=" text-align:left; font-size:11pt">
-          <span th:text="${breachNotice.furtherReasonDetails}"></span>
-        </p>
-        <br/>
-      </td>
-    </tr>
-    <tr style="height:26pt">
-      <td colspan="5"
-          style="width:496.3pt; border-top-style:solid; border-top-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
-        <br/>
-        <p style=" text-align:center; font-size:11pt">
-          <strong><span>THIS FAILURE TO COMPLY IS UNACCEPTABLE</span></strong>
-        </p>
-        <br/>
-      </td>
-    </tr>
-  </table>
-  <br/>
-  <p style="text-align:justify">
-    <span>As part of your Court Order, Licence and or Post Sentence Supervision you are required to attend ALL appointments at the time and place you were told to, actively join in and follow all reasonable instructions given. If for good reason you were unable to attend an appointment, you agreed to tell your Responsible Officer AND provide supporting evidence of your reason (s) beforehand. If for good reason you were not able to do this beforehand, you agreed to do this as soon as possible after and within </span><strong><u><span>5 working days of the failed appointment</span></u></strong><span> for your reason (s) to be considered.</span>
-  </p>
-  <br/>
-  <p style="text-align:justify">
-    <u><span>WHAT SHOULD I DO NOW</span></u><span>?</span>
-  </p>
-  <p style="text-align:justify">
-    <span>You must contact me immediately to explain your reason (s) AND provide me with acceptable supporting evidence for your breach, by <span th:text="${#temporals.format(breachNotice.responseRequiredDate, 'dd/MM/yyyy')}">{responseDate}</span> If you do not provide me with an acceptable reason and acceptable supporting evidence by this date, your failure to comply will remain as a breach of this Order.</span>
-  </p>
-  <br/>
-  <p>
-    <strong><span>Please note: </span></strong><span>If you fail to comply with ANY requirement and or condition of your <span th:text="${breachNotice.breachSentenceTypeDescription}">{sentenceType}</span> on
-            <span th:text="${breachNotice.conditionBeingEnforced}">{complianceDetails}</span>, you could be returned to Court for breach action. </span>
-  </p>
-  <p>
-    <span>In this event, you will be sent a letter from the Court summoning you to appear for breach on the date and time specified in the letter. If you fail to attend you risk being arrested.</span>
-  </p>
-  <p>
-    <span>The letter will be sent on paper headed with the crest below and titled </span><strong><span
-  >‘SUMMONS’</span></strong><span> </span>
-  </p>
-  <p>
-    <img src="data:image/gif;base64,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" alt="HM Courts Crest" width="96" height="89" />
-  </p>
-  <p style="text-align:justify">
-    <span>If any of this is not clear, please speak to me as soon as possible on <span th:text="${breachNotice.contactNumber}">{omPhone}</span></span>
-  </p>
-  <br/>
-  <p style="text-align:justify">
-    <span>As well as any other instruction already given, your next appointment is with <span th:text="${breachNotice.nextAppointmentOfficer}">{nextContactOfficer}</span></span>
-  </p>
-  <br/>
-  <p style="text-align:justify">
-    <span>Place: <span th:text="${breachNotice.nextAppointmentLocation}">{nextAppointmentLocation}</span></span>
-  </p>
-  <p style="text-align:justify">
-    <span>Date: <span th:text="${#temporals.format(breachNotice.nextAppointmentDate, 'dd/MM/yyyy')}">{nextAppointmentDate}</span></span>
-  </p>
-  <p style="text-align:justify">
-    <span>Time: <span th:text="${#temporals.format(breachNotice.nextAppointmentDate, 'HH:mm')}">{nextAppointmentTime}</span></span>
-  </p>
-  <br/>
-  <p>
-    <span>Yours sincerely, </span>
-  </p>
-  <p>
-    <span><span th:text="${breachNotice.responsibleOfficer}">{omName}</span></span>
-  </p>
-  <p>
-    <span>Responsible Officer</span>
-  </p>
-  <br/>
-  <div style=" font-size:12pt; display: table; width: 100%">
-    <p style="display: table-cell; text-align: center">
-      <strong><span style="">OFFICIAL</span></strong>
-    </p>
-  </div>
-  -->
 </div>
 </body>
