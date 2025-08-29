@@ -10,4 +10,5 @@ data class Contact(
   val contactPerson: String? = null,
   val contactLocation: Address? = null,
   val formSent: Boolean? = null,
+  val emailAddress: String? = null,
 )

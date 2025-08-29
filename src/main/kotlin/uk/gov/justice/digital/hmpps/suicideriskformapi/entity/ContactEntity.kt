@@ -31,6 +31,7 @@ data class ContactEntity(
   @JoinColumn(name = "contact_location_id", unique = true)
   val contactLocation: AddressEntity? = null,
   val formSent: Boolean? = null,
+  val emailAddress: String? = null,
   @CreatedBy
   var createdByUser: String? = null,
   @CreatedDate
