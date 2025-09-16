@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional
 import uk.gov.justice.digital.hmpps.suicideriskformapi.entity.AddressEntity
 import uk.gov.justice.digital.hmpps.suicideriskformapi.entity.ContactEntity
 import uk.gov.justice.digital.hmpps.suicideriskformapi.entity.SuicideRiskEntity
+import uk.gov.justice.digital.hmpps.suicideriskformapi.enums.ReviewEventType
 import uk.gov.justice.digital.hmpps.suicideriskformapi.exception.NotFoundException
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.Address
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.Contact
@@ -14,6 +15,7 @@ import uk.gov.justice.digital.hmpps.suicideriskformapi.model.CreateResponse
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.InitialiseSuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.repository.SuicideRiskRepository
+import java.time.ZonedDateTime
 import java.util.*
 
 @Service
@@ -213,4 +215,21 @@ class SuicideRiskService(
     contactLocation = contactLocation?.toEntity(),
     formSent = formSent,
   )
+
+  fun getActiveSuicideRisksForCrn(crn: String?): Collection<SuicideRiskEntity> = suicideRiskRepository.findByCrnAndCompletedDateIsNull(crn)
+
+  fun updateSuicideRiskCrn(suicideRisk: SuicideRiskEntity, crn: String) {
+    suicideRisk.crn = crn
+    suicideRiskRepository.save(suicideRisk)
+  }
+
+  fun updateReviewEvent(eventType: ReviewEventType, suicideRisk: SuicideRiskEntity, occurredAt: ZonedDateTime) {
+    suicideRisk.reviewEvent = eventType.name
+    suicideRisk.reviewRequiredDate = occurredAt.toLocalDateTime()
+    suicideRiskRepository.save(suicideRisk)
+  }
+
+  fun deleteAllByCrn(crn: String) {
+    suicideRiskRepository.deleteByCrn(crn)
+  }
 }
