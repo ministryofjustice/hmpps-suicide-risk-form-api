@@ -19,7 +19,7 @@ class PdfGenerationTests : IntegrationTestBase() {
   fun `get PDF should return a 200 response`() {
     webTestClient.post()
       .uri("/suicide-risk")
-      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
       .bodyValue(SuicideRisk(crn = "X800001"))
       .exchange()
       .expectStatus()
@@ -32,7 +32,7 @@ class PdfGenerationTests : IntegrationTestBase() {
       .mutate().responseTimeout(Duration.ofSeconds(30)).build()
       .get()
       .uri("/suicide-risk/" + suicideRisk[0].id + "/pdf")
-      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
       .exchange()
       .expectStatus()
       .isOk
@@ -46,7 +46,7 @@ class PdfGenerationTests : IntegrationTestBase() {
   fun `get PDF should return a 404 response if not found`() {
     webTestClient.post()
       .uri("/suicide-risk")
-      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
       .bodyValue(SuicideRisk(crn = "X800002"))
       .exchange()
       .expectStatus()
@@ -57,7 +57,7 @@ class PdfGenerationTests : IntegrationTestBase() {
 
     webTestClient.get()
       .uri("/suicide-risk/" + UUID.randomUUID() + "/pdf")
-      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
       .exchange()
       .expectStatus().isNotFound
   }

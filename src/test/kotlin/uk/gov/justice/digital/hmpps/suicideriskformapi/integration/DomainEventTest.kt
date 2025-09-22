@@ -27,7 +27,7 @@ class DomainEventTest : IntegrationTestBase() {
     fun `merge event should update CRN for active suicide risk`() {
       webTestClient.post()
         .uri("/suicide-risk")
-        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
         .bodyValue(SuicideRisk(crn = "X000101"))
         .exchange()
         .expectStatus()
@@ -62,7 +62,7 @@ class DomainEventTest : IntegrationTestBase() {
     fun `merge event should not update CRN for completed suicide risk`() {
       webTestClient.post()
         .uri("/suicide-risk")
-        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
         .bodyValue(SuicideRisk(crn = "X000111"))
         .exchange()
         .expectStatus()
@@ -100,7 +100,7 @@ class DomainEventTest : IntegrationTestBase() {
     fun `unmerge event should update CRN for active suicide risk`() {
       webTestClient.post()
         .uri("/suicide-risk")
-        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
         .bodyValue(SuicideRisk(crn = "X000121"))
         .exchange()
         .expectStatus()
@@ -154,7 +154,7 @@ class DomainEventTest : IntegrationTestBase() {
     fun `unmerge event should not update CRN for active suicide risk`() {
       webTestClient.post()
         .uri("/suicide-risk")
-        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
         .bodyValue(SuicideRisk(crn = "X000131"))
         .exchange()
         .expectStatus()
@@ -208,7 +208,7 @@ class DomainEventTest : IntegrationTestBase() {
     fun `move event should update CRN for active suicide risk`() {
       webTestClient.post()
         .uri("/suicide-risk")
-        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
         .bodyValue(SuicideRisk(crn = "X000141"))
         .exchange()
         .expectStatus()
@@ -243,7 +243,7 @@ class DomainEventTest : IntegrationTestBase() {
     fun `move event should not update CRN for completed suicide risk`() {
       webTestClient.post()
         .uri("/suicide-risk")
-        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
         .bodyValue(SuicideRisk(crn = "X000151"))
         .exchange()
         .expectStatus()
@@ -281,7 +281,7 @@ class DomainEventTest : IntegrationTestBase() {
     fun `gdpr event should remove all suicide risks`() {
       webTestClient.post()
         .uri("/suicide-risk")
-        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
         .bodyValue(SuicideRisk(crn = "X000161"))
         .exchange()
         .expectStatus()
