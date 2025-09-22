@@ -19,7 +19,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
   fun `should create a suicide risk`() {
     webTestClient.post()
       .uri("/suicide-risk")
-      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK","ROLE_TEMPLATE_KOTLIN__UI")))
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
       .bodyValue(SuicideRisk(crn = "X000001"))
       .exchange()
       .expectStatus()
@@ -34,7 +34,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
   fun `should update a Suicide Risk`() {
     webTestClient.post()
       .uri("/suicide-risk")
-      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK","ROLE_TEMPLATE_KOTLIN__UI")))
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
       .bodyValue(SuicideRisk(crn = "X000002"))
       .exchange()
       .expectStatus()
@@ -82,7 +82,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
 
     webTestClient.put()
       .uri("/suicide-risk/" + suicideRisk.id)
-      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK","ROLE_TEMPLATE_KOTLIN__UI")))
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
       .bodyValue(suicideRiskBody)
       .exchange()
       .expectStatus()
@@ -100,7 +100,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
   fun `should update a Suicide Risk to completed`() {
     webTestClient.post()
       .uri("/suicide-risk")
-      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK","ROLE_TEMPLATE_KOTLIN__UI")))
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
       .bodyValue(SuicideRisk(crn = "X600002"))
       .exchange()
       .expectStatus()
@@ -148,7 +148,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
 
     webTestClient.put()
       .uri("/suicide-risk/" + suicideRisk.id)
-      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK","ROLE_TEMPLATE_KOTLIN__UI")))
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
       .bodyValue(suicideRiskBody)
       .exchange()
       .expectStatus()
@@ -167,7 +167,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
   fun `should fail to create if the crn is too long`() {
     webTestClient.post()
       .uri("/suicide-risk")
-      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK","ROLE_TEMPLATE_KOTLIN__UI")))
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
       .bodyValue(SuicideRisk(crn = "X000001123456789123456"))
       .exchange()
       .expectStatus().isBadRequest
@@ -178,7 +178,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
   fun `should delete a suicide risk`() {
     webTestClient.post()
       .uri("/suicide-risk")
-      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK","ROLE_TEMPLATE_KOTLIN__UI")))
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
       .bodyValue(SuicideRisk(crn = "X000004"))
       .exchange()
       .expectStatus()
@@ -190,7 +190,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
 
     webTestClient.delete()
       .uri("/suicide-risk/" + suicideRisk.first().id)
-      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK","ROLE_TEMPLATE_KOTLIN__UI")))
+      .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK", "ROLE_TEMPLATE_KOTLIN__UI")))
       .exchange()
       .expectStatus()
       .isOk
