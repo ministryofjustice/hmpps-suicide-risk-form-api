@@ -31,7 +31,7 @@ import java.util.UUID
 
 @Validated
 @RestController
-@PreAuthorize("hasRole('ROLE_TEMPLATE_KOTLIN__UI')")
+@PreAuthorize("hasRole('ROLE_SUICIDE_RISK')")
 @RequestMapping(value = ["/suicide-risk"], produces = ["application/json"])
 class SuicideRiskController(
   private val suicideRiskService: SuicideRiskService,
