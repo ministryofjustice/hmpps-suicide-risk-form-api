@@ -11,7 +11,6 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -230,7 +229,6 @@ class SuicideRiskController(
     @RequestBody recipient: Contact,
   ): Contact = suicideRiskService.createRecipient(suicideRiskId, recipient)
 
-
   @PutMapping("{id}/recipient/{contactId}")
   @Operation(
     summary = "Update a Suicide Risk Recipient",
@@ -241,24 +239,24 @@ class SuicideRiskController(
       ApiResponse(
         responseCode = "401",
         description = "Unauthorized to access this endpoint",
-        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))]
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
       ),
       ApiResponse(
         responseCode = "403",
         description = "Forbidden to access this endpoint",
-        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))]
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
       ),
       ApiResponse(
         responseCode = "404",
         description = "The Suicide Risk or Recipient id was not found",
-        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))]
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
       ),
-    ]
+    ],
   )
   fun updateRecipient(
     @PathVariable id: UUID,
     @PathVariable contactId: UUID,
-    @RequestBody request: Contact
+    @RequestBody request: Contact,
   ) = suicideRiskService.updateRecipient(id, contactId, request)
 
   @GetMapping("{id}/recipient/{contactId}")
@@ -286,5 +284,4 @@ class SuicideRiskController(
     ],
   )
   fun getRecipient(@PathVariable id: UUID, @PathVariable contactId: UUID) = suicideRiskService.getRecipient(id, contactId)
-
 }
