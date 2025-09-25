@@ -14,6 +14,7 @@ import uk.gov.justice.digital.hmpps.suicideriskformapi.model.Contact
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.CreateResponse
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.InitialiseSuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk
+import uk.gov.justice.digital.hmpps.suicideriskformapi.repository.ContactRepository
 import uk.gov.justice.digital.hmpps.suicideriskformapi.repository.SuicideRiskRepository
 import java.time.ZonedDateTime
 import java.util.*
@@ -21,6 +22,7 @@ import java.util.*
 @Service
 class SuicideRiskService(
   val suicideRiskRepository: SuicideRiskRepository,
+  val contactRepository: ContactRepository,
   val pdfGenerationService: PdfGenerationService,
   @Value("\${frontend.url}") val frontendUrl: String,
 ) {
@@ -55,6 +57,47 @@ class SuicideRiskService(
 
     return suicideRiskRepository.deleteById(id)
   }
+
+  @Transactional
+  fun getRecipient(suicideRiskId: UUID, contactId: UUID): Contact {
+    val fetchedContact = contactRepository.findFirstBySuicideRisk_IdAndId(suicideRiskId, contactId)
+      ?: throw NotFoundException("ContactEntity", "id", contactId)
+    return fetchedContact.toModel()
+  }
+
+
+  @Transactional
+  fun deleteRecipient(suicideRiskId: UUID, contactId: UUID) {
+    val fetchedContact = contactRepository.findFirstBySuicideRisk_IdAndId(suicideRiskId, contactId)
+      ?: throw NotFoundException("ContactEntity", "id", contactId)
+    contactRepository.deleteById(fetchedContact.id)
+  }
+
+  fun createRecipient(suicideRiskId: UUID, recipient: Contact): Contact {
+    if (!suicideRiskRepository.existsById(suicideRiskId)) {
+      throw NotFoundException("SuicideRiskEntity", "id", suicideRiskId)
+    }
+
+    val entity = recipient.toEntity().apply {
+      suicideRisk = suicideRiskRepository.getReferenceById(suicideRiskId)
+    }
+
+    return contactRepository.save(entity).toModel()
+  }
+
+  @Transactional
+  fun updateRecipient(suicideRiskId: UUID, contactId: UUID, request: Contact): Contact {
+    val existing = contactRepository.findFirstBySuicideRisk_IdAndId(suicideRiskId, contactId)
+      ?: throw NotFoundException("ContactEntity", "id", contactId)
+
+    val updatedEntity = request.toEntity(existing).apply {
+      suicideRisk = existing.suicideRisk
+    }
+
+    val saved = contactRepository.save(updatedEntity)
+    return saved.toModel()
+  }
+
 
   fun getSuicideRiskAsPdf(id: UUID, suicideRisk: SuicideRisk?, draft: Boolean): ByteArray? {
     val html = pdfGenerationService.generateHtml(suicideRisk)
@@ -198,19 +241,24 @@ class SuicideRiskService(
   )
 
   private fun ContactEntity.toModel() = Contact(
-    contactTypeDescription = contactTypeDescription,
-    contactPerson = contactPerson,
-    contactLocation = contactLocation?.toModel(),
-    formSent = formSent,
+    id = this.id,
+    contactDate = this.contactDate,
+    contactTypeDescription = this.contactTypeDescription,
+    contactPerson = this.contactPerson,
+    contactLocation = this.contactLocation?.toModel(),
+    formSent = this.formSent,
+    emailAddress = this.emailAddress
   )
 
   private fun Contact.toEntity(existingEntity: ContactEntity? = null) = existingEntity?.copy(
     contactTypeDescription = contactTypeDescription,
+    contactDate = contactDate,
     contactPerson = contactPerson,
     contactLocation = contactLocation?.toEntity(),
     formSent = formSent,
   ) ?: ContactEntity(
     contactTypeDescription = contactTypeDescription,
+    contactDate = contactDate,
     contactPerson = contactPerson,
     contactLocation = contactLocation?.toEntity(),
     formSent = formSent,
