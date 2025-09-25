@@ -7,5 +7,5 @@ import java.util.*
 
 @Repository
 interface ContactRepository : JpaRepository<ContactEntity, UUID> {
-  fun findFirstBySuicideRisk_IdAndId(suicideRiskId: UUID, contactId: UUID): ContactEntity?
+  fun findFirstBySuicideRiskIdAndId(suicideRiskId: UUID, contactId: UUID): ContactEntity?
 }

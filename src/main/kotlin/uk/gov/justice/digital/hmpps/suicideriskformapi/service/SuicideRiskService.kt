@@ -60,15 +60,14 @@ class SuicideRiskService(
 
   @Transactional
   fun getRecipient(suicideRiskId: UUID, contactId: UUID): Contact {
-    val fetchedContact = contactRepository.findFirstBySuicideRisk_IdAndId(suicideRiskId, contactId)
+    val fetchedContact = contactRepository.findFirstBySuicideRiskIdAndId(suicideRiskId, contactId)
       ?: throw NotFoundException("ContactEntity", "id", contactId)
     return fetchedContact.toModel()
   }
 
-
   @Transactional
   fun deleteRecipient(suicideRiskId: UUID, contactId: UUID) {
-    val fetchedContact = contactRepository.findFirstBySuicideRisk_IdAndId(suicideRiskId, contactId)
+    val fetchedContact = contactRepository.findFirstBySuicideRiskIdAndId(suicideRiskId, contactId)
       ?: throw NotFoundException("ContactEntity", "id", contactId)
     contactRepository.deleteById(fetchedContact.id)
   }
@@ -87,7 +86,7 @@ class SuicideRiskService(
 
   @Transactional
   fun updateRecipient(suicideRiskId: UUID, contactId: UUID, request: Contact): Contact {
-    val existing = contactRepository.findFirstBySuicideRisk_IdAndId(suicideRiskId, contactId)
+    val existing = contactRepository.findFirstBySuicideRiskIdAndId(suicideRiskId, contactId)
       ?: throw NotFoundException("ContactEntity", "id", contactId)
 
     val updatedEntity = request.toEntity(existing).apply {
@@ -97,7 +96,6 @@ class SuicideRiskService(
     val saved = contactRepository.save(updatedEntity)
     return saved.toModel()
   }
-
 
   fun getSuicideRiskAsPdf(id: UUID, suicideRisk: SuicideRisk?, draft: Boolean): ByteArray? {
     val html = pdfGenerationService.generateHtml(suicideRisk)
@@ -247,7 +245,7 @@ class SuicideRiskService(
     contactPerson = this.contactPerson,
     contactLocation = this.contactLocation?.toModel(),
     formSent = this.formSent,
-    emailAddress = this.emailAddress
+    emailAddress = this.emailAddress,
   )
 
   private fun Contact.toEntity(existingEntity: ContactEntity? = null) = existingEntity?.copy(
