@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import uk.gov.justice.digital.hmpps.suicideriskformapi.model.Contact
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.InitialiseSuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.service.SnsService
@@ -173,4 +174,115 @@ class SuicideRiskController(
     headers.contentDisposition = ContentDisposition.attachment().filename("Suicide_Risk_Form_" + suicideRisk?.crn + ".pdf").build()
     return ResponseEntity.ok().headers(headers).body(pdfBytes)
   }
+
+  @DeleteMapping("/{id}/recipient/{contactId}")
+  @Operation(
+    summary = "Delete a Suicide Risk Recipient",
+    description = "Calls through the suicide risk service to delete a recipient",
+    security = [SecurityRequirement(name = "suicide-risk-form-api-ui-role")],
+    responses = [
+      ApiResponse(responseCode = "200", description = "Suicide Risk Recipient Deleted"),
+      ApiResponse(
+        responseCode = "401",
+        description = "Unauthorized to access this endpoint",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+      ApiResponse(
+        responseCode = "403",
+        description = "Forbidden to access this endpoint",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+      ApiResponse(
+        responseCode = "404",
+        description = "The Suicide Risk id was not found",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+    ],
+  )
+  fun deleteRecipient(@PathVariable id: UUID, @PathVariable contactId: UUID) = suicideRiskService.deleteRecipient(id, contactId)
+
+  @PostMapping("{id}/recipient")
+  @Operation(
+    summary = "Create a Suicide Risk Recipient",
+    description = "Adds a new recipient to the suicide risk",
+    security = [SecurityRequirement(name = "suicide-risk-form-api-ui-role")],
+    responses = [
+      ApiResponse(responseCode = "201", description = "Suicide Risk Recipient Created"),
+      ApiResponse(
+        responseCode = "401",
+        description = "Unauthorized to access this endpoint",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+      ApiResponse(
+        responseCode = "403",
+        description = "Forbidden to access this endpoint",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+      ApiResponse(
+        responseCode = "404",
+        description = "The Suicide Risk id was not found",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+    ],
+  )
+  fun createRecipient(
+    @PathVariable("id") suicideRiskId: UUID,
+    @RequestBody recipient: Contact,
+  ): Contact = suicideRiskService.createRecipient(suicideRiskId, recipient)
+
+  @PutMapping("{id}/recipient/{contactId}")
+  @Operation(
+    summary = "Update a Suicide Risk Recipient",
+    description = "Updates an existing recipient for the suicide risk",
+    security = [SecurityRequirement(name = "suicide-risk-form-api-ui-role")],
+    responses = [
+      ApiResponse(responseCode = "200", description = "Suicide Risk Recipient Updated"),
+      ApiResponse(
+        responseCode = "401",
+        description = "Unauthorized to access this endpoint",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+      ApiResponse(
+        responseCode = "403",
+        description = "Forbidden to access this endpoint",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+      ApiResponse(
+        responseCode = "404",
+        description = "The Suicide Risk or Recipient id was not found",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+    ],
+  )
+  fun updateRecipient(
+    @PathVariable id: UUID,
+    @PathVariable contactId: UUID,
+    @RequestBody request: Contact,
+  ) = suicideRiskService.updateRecipient(id, contactId, request)
+
+  @GetMapping("{id}/recipient/{contactId}")
+  @Operation(
+    summary = "Get a Suicide Risk Recipient",
+    description = "Calls through the suicide risk service to get a recipient",
+    security = [SecurityRequirement(name = "suicide-risk-form-api-ui-role")],
+    responses = [
+      ApiResponse(responseCode = "200", description = "Suicide Risk recipient returned"),
+      ApiResponse(
+        responseCode = "401",
+        description = "Unauthorized to access this endpoint",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+      ApiResponse(
+        responseCode = "403",
+        description = "Forbidden to access this endpoint",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+      ApiResponse(
+        responseCode = "404",
+        description = "The Suicide Risk id was not found",
+        content = [Content(mediaType = "application/json", schema = Schema(implementation = ErrorResponse::class))],
+      ),
+    ],
+  )
+  fun getRecipient(@PathVariable id: UUID, @PathVariable contactId: UUID) = suicideRiskService.getRecipient(id, contactId)
 }
