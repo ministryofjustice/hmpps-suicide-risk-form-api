@@ -43,7 +43,7 @@ class PdfGenerationTests : IntegrationTestBase() {
   }
 
   @Test
-  fun `get PDF should return a 404 response if breach not found`() {
+  fun `get PDF should return a 404 response if not found`() {
     webTestClient.post()
       .uri("/suicide-risk")
       .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))

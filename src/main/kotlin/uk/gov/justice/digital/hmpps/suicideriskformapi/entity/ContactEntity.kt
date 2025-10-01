@@ -25,12 +25,14 @@ data class ContactEntity(
   @JoinColumn(name = "suicide_risk_id")
   @ManyToOne
   var suicideRisk: SuicideRiskEntity? = null,
+  var contactDate: LocalDateTime? = null,
   val contactTypeDescription: String? = null,
   val contactPerson: String? = null,
   @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
   @JoinColumn(name = "contact_location_id", unique = true)
   val contactLocation: AddressEntity? = null,
   val formSent: Boolean? = null,
+  val emailAddress: String? = null,
   @CreatedBy
   var createdByUser: String? = null,
   @CreatedDate

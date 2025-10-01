@@ -8,4 +8,6 @@ import java.util.*
 @Repository
 interface SuicideRiskRepository : JpaRepository<SuicideRiskEntity, UUID> {
   fun findByCrn(crn: String): List<SuicideRiskEntity>
+  fun deleteByCrn(crn: String)
+  fun findByCrnAndCompletedDateIsNull(crn: String?): List<SuicideRiskEntity>
 }
