@@ -25,6 +25,7 @@ data class ContactEntity(
   @JoinColumn(name = "suicide_risk_id")
   @ManyToOne
   var suicideRisk: SuicideRiskEntity? = null,
+  var contactDate: LocalDateTime? = null,
   val contactTypeDescription: String? = null,
   val contactPerson: String? = null,
   @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
