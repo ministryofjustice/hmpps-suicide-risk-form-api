@@ -124,7 +124,10 @@
     </thead>
     <tbody>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'other_colleagues']}">
-        <td><span th:if="${iterStat.index == 0}">Other colleagues</span></td>
+        <td th:if="${iterStat.index == 0}"
+            th:attr="rowspan=${#lists.size(suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'other_colleagues'])}">
+          Other colleagues
+        </td>
         <td><span th:text="${con.contactPerson}"></span></td>
         <td><span>
 						<div th:if="${con.contactLocation != null}">
@@ -150,7 +153,10 @@
         <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
       </tr>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'prison_establishment']}">
-        <td><span th:if="${iterStat.index == 0}">Prison Establishment</span></td>
+        <td th:if="${iterStat.index == 0}"
+            th:attr="rowspan=${#lists.size(suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'prison_establishment'])}">
+          Prison Establishment
+        </td>
         <td><span th:text="${con.contactPerson}"></span></td>
         <td><span>
 						<div th:if="${con.contactLocation != null}">
@@ -176,7 +182,10 @@
         <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
       </tr>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'police_custody_cells']}">
-        <td><span th:if="${iterStat.index == 0}">Police (Custody Cells)</span></td>
+        <td th:if="${iterStat.index == 0}"
+            th:attr="rowspan=${#lists.size(suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'police_custody_cells'])}">
+          Police (Custody Cells)
+        </td>
         <td><span th:text="${con.contactPerson}"></span></td>
         <td><span>
 						<div th:if="${con.contactLocation != null}">
@@ -202,7 +211,10 @@
         <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
       </tr>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'medical_services']}">
-        <td><span th:if="${iterStat.index == 0}">Medical Services</span></td>
+        <td th:if="${iterStat.index == 0}"
+            th:attr="rowspan=${#lists.size(suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'medical_services'])}">
+          Medical Services
+        </td>
         <td><span th:text="${con.contactPerson}"></span></td>
         <td><span>
 						<div th:if="${con.contactLocation != null}">
@@ -228,7 +240,10 @@
         <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
       </tr>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'other_agency']}">
-        <td><span th:if="${iterStat.index == 0}">Other Agency</span></td>
+        <td th:if="${iterStat.index == 0}"
+            th:attr="rowspan=${#lists.size(suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'other_agency'])}">
+          Other Agency
+        </td>
         <td><span th:text="${con.contactPerson}"></span></td>
         <td><span>
 						<div th:if="${con.contactLocation != null}">
