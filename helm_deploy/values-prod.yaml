@@ -7,10 +7,12 @@ generic-service:
 
   env:
     HMPPS_AUTH_URL: "https://sign-in.hmpps.service.justice.gov.uk/auth"
+    NDELIUS-INTEGRATION-API_URL: "https://suicide-risk-form-and-delius.hmpps.service.justice.gov.uk"
+    FRONTEND_URL: "https://suicide-risk-form.hmpps.service.justice.gov.uk"
 
   allowlist:
     groups:
-      - internal
+      - digital_staff_and_mojo
       - unilink_staff
       - delius-prod
 

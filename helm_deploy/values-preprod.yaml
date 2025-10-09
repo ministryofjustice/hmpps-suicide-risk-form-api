@@ -10,10 +10,12 @@ generic-service:
   env:
     APPLICATIONINSIGHTS_CONFIGURATION_FILE: "applicationinsights.dev.json"
     HMPPS_AUTH_URL: "https://sign-in-preprod.hmpps.service.justice.gov.uk/auth"
+    NDELIUS-INTEGRATION-API_URL: "https://suicide-risk-form-and-delius-preprod.hmpps.service.justice.gov.uk"
+    FRONTEND_URL: "https://suicide-risk-form-preprod.hmpps.service.justice.gov.uk"
 
   allowlist:
     groups:
-      - internal
+      - digital_staff_and_mojo
       - unilink_staff
       - delius-preprod
 

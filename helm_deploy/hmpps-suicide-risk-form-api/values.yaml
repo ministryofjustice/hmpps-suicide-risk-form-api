@@ -2,6 +2,8 @@ generic-service:
   nameOverride: hmpps-suicide-risk-form-api
   productId: "HMPPS501" # productId for the product that this belongs too, i.e. DPS001, see README.md for details
 
+  serviceAccountName: hmpps-suicide-risk-form
+
   replicaCount: 4
 
   image:
@@ -19,6 +21,7 @@ generic-service:
     JAVA_OPTS: "-Xmx512m"
     SERVER_PORT: "8080"
     APPLICATIONINSIGHTS_CONFIGURATION_FILE: applicationinsights.json
+    GOTENBERG_URL: http://hmpps-suicide-risk-form-api-gotenberg
 
   # Pre-existing kubernetes secrets to load as environment variables in the deployment.
   # namespace_secrets:
@@ -28,10 +31,64 @@ generic-service:
   namespace_secrets:
     hmpps-suicide-risk-form-api-application-insights:
       APPLICATIONINSIGHTS_CONNECTION_STRING: "APPLICATIONINSIGHTS_CONNECTION_STRING"
+    hmpps-suicide-risk-form-api-client-creds:
+      HMPPS-AUTH_CLIENT-ID: API_CLIENT_ID
+      HMPPS-AUTH_CLIENT-SECRET: API_CLIENT_SECRET
+    hmpps-domain-events:
+      HMPPS_SQS_TOPICS_HMPPSSUICIDERISKFORMPUBLISHTOPIC_ARN: topic_arn
+    sqs-queue:
+      HMPPS_SQS_QUEUES_HMPPSSUICIDERISKFORMQUEUE_QUEUE_NAME: sqs_queue_name
+    sqs-dlq:
+      HMPPS_SQS_QUEUES_HMPPSSUICIDERISKFORMQUEUE_DLQ_NAME: sqs_queue_name
+    rds-instance-output:
+      DATABASE_ENDPOINT: rds_instance_endpoint
+      DATABASE_USERNAME: database_username
+      DATABASE_PASSWORD: database_password
+      DATABASE_NAME: database_name
 
-  allowlist:
-    groups:
-      - internal
+gotenberg:
+  nameOverride: gotenberg
+  replicaCount: 2
+
+  image:
+    repository: gotenberg/gotenberg
+    tag: 8
+    port: 3000
+
+  ingress:
+    enabled: false
+
+  livenessProbe:
+    httpGet:
+      path: /health
+    periodSeconds: 30
+    initialDelaySeconds: 60
+    timeoutSeconds: 20
+    failureThreshold: 10
+
+  readinessProbe:
+    httpGet:
+      path: /health
+    periodSeconds: 20
+    initialDelaySeconds: 60
+    timeoutSeconds: 30
+    failureThreshold: 15
+
+  podSecurityContext:
+    fsGroup: 1001
+
+  securityContext:
+    runAsUser: 1001
+    runAsNonRoot: true
+    readOnlyRootFilesystem: false
+    allowPrivilegeEscalation: false
+    privileged: false
+
+  env:
+    GOOGLE_CHROME_IGNORE_CERTIFICATE_ERRORS: 1
+    DISABLE_UNOCONV: 1
+    DEFAULT_WAIT_TIMEOUT: 30
 
 generic-prometheus-alerts:
   targetApplication: hmpps-suicide-risk-form-api
+  alertSeverity: hmpps-suicide-risk-form-notifications
