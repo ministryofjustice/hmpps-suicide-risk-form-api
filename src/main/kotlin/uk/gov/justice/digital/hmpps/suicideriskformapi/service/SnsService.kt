@@ -35,7 +35,7 @@ class SnsService(
       personReference = PersonReference(listOf(Identifiers(type = "crn", value = breachNotice.crn))),
       detailUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/suicide-risk/" + id + "/pdf",
       additionalInformation = mapOf(
-        "suicideRiskId" to id,
+        "suicideRiskFormId" to id,
         "username" to SecurityContextHolder.getContext().authentication.name,
       ),
 
