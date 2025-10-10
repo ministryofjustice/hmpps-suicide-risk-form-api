@@ -43,4 +43,4 @@ data class ContactEntity(
   var lastUpdatedUser: String? = null,
   val sendFormManually: Boolean? = null,
   val sendFormViaEmail: Boolean? = null,
-  )
+)

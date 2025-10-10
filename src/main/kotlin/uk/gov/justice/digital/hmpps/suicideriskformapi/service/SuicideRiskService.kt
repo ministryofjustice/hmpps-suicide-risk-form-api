@@ -268,7 +268,7 @@ class SuicideRiskService(
     emailAddress = emailAddress,
     sendFormManually = sendFormManually,
     sendFormViaEmail = sendFormViaEmail,
-    )
+  )
 
   fun getActiveSuicideRisksForCrn(crn: String?): Collection<SuicideRiskEntity> = suicideRiskRepository.findByCrnAndCompletedDateIsNull(crn)
 

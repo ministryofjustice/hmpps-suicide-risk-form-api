@@ -13,4 +13,4 @@ data class Contact(
   val emailAddress: String? = null,
   val sendFormManually: Boolean? = null,
   val sendFormViaEmail: Boolean? = null,
-  )
+)
