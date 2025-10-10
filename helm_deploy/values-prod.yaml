@@ -14,6 +14,7 @@ generic-service:
     groups:
       - digital_staff_and_mojo
       - unilink_staff
+      - moj_cloud_platform
       - delius-prod
 
 # CloudPlatform AlertManager receiver to route prometheus alerts to slack
