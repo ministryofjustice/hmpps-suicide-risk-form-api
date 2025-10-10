@@ -246,6 +246,8 @@ class SuicideRiskService(
     contactLocation = this.contactLocation?.toModel(),
     formSent = this.formSent,
     emailAddress = this.emailAddress,
+    sendFormManually = this.sendFormManually,
+    sendFormViaEmail = this.sendFormViaEmail,
   )
 
   private fun Contact.toEntity(existingEntity: ContactEntity? = null) = existingEntity?.copy(
@@ -254,13 +256,19 @@ class SuicideRiskService(
     contactPerson = contactPerson,
     contactLocation = contactLocation?.toEntity(),
     formSent = formSent,
+    emailAddress = emailAddress,
+    sendFormManually = sendFormManually,
+    sendFormViaEmail = sendFormViaEmail,
   ) ?: ContactEntity(
     contactTypeDescription = contactTypeDescription,
     contactDate = contactDate,
     contactPerson = contactPerson,
     contactLocation = contactLocation?.toEntity(),
     formSent = formSent,
-  )
+    emailAddress = emailAddress,
+    sendFormManually = sendFormManually,
+    sendFormViaEmail = sendFormViaEmail,
+    )
 
   fun getActiveSuicideRisksForCrn(crn: String?): Collection<SuicideRiskEntity> = suicideRiskRepository.findByCrnAndCompletedDateIsNull(crn)
 

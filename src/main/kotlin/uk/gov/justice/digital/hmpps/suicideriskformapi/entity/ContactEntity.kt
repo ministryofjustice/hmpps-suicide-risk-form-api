@@ -41,4 +41,6 @@ data class ContactEntity(
   var lastUpdatedDatetime: LocalDateTime? = null,
   @LastModifiedBy
   var lastUpdatedUser: String? = null,
-)
+  val sendFormManually: Boolean? = null,
+  val sendFormViaEmail: Boolean? = null,
+  )
