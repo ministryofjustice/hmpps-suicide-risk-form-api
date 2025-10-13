@@ -330,4 +330,15 @@
   </table>
 
 </div>
+<footer style="
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
+  color: #555;">
+  <div>NPS Breach Pack Suicide Form</div>
+  <div th:text="'Issue Date: ' + ${#dates.format(#dates.createNow(), 'dd/MM/yyyy')}"></div>
+</footer>
+
 </body>
