@@ -150,7 +150,8 @@
                                           th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
 						</div>
                     </span></td>
-        <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
+        <td><span th:if="${con.sendFormManually || con.sendFormViaEmail}">Yes</span>
+          <span th:if="${!con.sendFormManually && !con.sendFormViaEmail}">No</span></td>
       </tr>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'prison_establishment']}">
         <td th:if="${iterStat.index == 0}"
@@ -179,7 +180,8 @@
                                           th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
 						</div>
                     </span></td>
-        <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
+        <td><span th:if="${con.sendFormManually || con.sendFormViaEmail}">Yes</span>
+          <span th:if="${!con.sendFormManually && !con.sendFormViaEmail}">No</span></td>
       </tr>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'police_custody_cells']}">
         <td th:if="${iterStat.index == 0}"
@@ -208,7 +210,8 @@
                                           th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
 						</div>
                     </span></td>
-        <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
+        <td><span th:if="${con.sendFormManually || con.sendFormViaEmail}">Yes</span>
+          <span th:if="${!con.sendFormManually && !con.sendFormViaEmail}">No</span></td>
       </tr>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'medical_services']}">
         <td th:if="${iterStat.index == 0}"
@@ -237,7 +240,8 @@
                                           th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
 						</div>
                     </span></td>
-        <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
+        <td><span th:if="${con.sendFormManually || con.sendFormViaEmail}">Yes</span>
+          <span th:if="${!con.sendFormManually && !con.sendFormViaEmail}">No</span></td>
       </tr>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'other_agency']}">
         <td th:if="${iterStat.index == 0}"
@@ -266,7 +270,8 @@
                                           th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
 						</div>
                     </span></td>
-        <td><span th:if="${con.formSent}">Yes</span><span th:if="${!con.formSent}">No</span></td>
+        <td><span th:if="${con.sendFormManually || con.sendFormViaEmail}">Yes</span>
+          <span th:if="${!con.sendFormManually && !con.sendFormViaEmail}">No</span></td>
       </tr>
     </tbody>
   </table>
