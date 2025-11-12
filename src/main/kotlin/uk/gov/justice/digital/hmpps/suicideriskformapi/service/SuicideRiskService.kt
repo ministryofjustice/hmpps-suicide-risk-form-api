@@ -50,12 +50,13 @@ class SuicideRiskService(
   }
 
   @Transactional
-  fun deleteSuicideRisk(id: UUID): Any? {
+  fun deleteSuicideRisk(id: UUID): String {
     if (!suicideRiskRepository.existsById(id)) {
       throw NotFoundException("SuicideRiskEntity", "id", id)
     }
-
-    return suicideRiskRepository.deleteById(id)
+    val crn = findSuicideRiskById(id).crn
+    suicideRiskRepository.deleteById(id)
+    return crn
   }
 
   @Transactional
