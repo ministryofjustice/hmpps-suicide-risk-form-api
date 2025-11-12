@@ -63,7 +63,7 @@ class SnsService(
         "username" to SecurityContextHolder.getContext().authentication.name,
       ),
 
-      )
+    )
     val publishResponse = outboundTopic.snsClient.publish(
       PublishRequest.builder().topicArn(outboundTopicArn).message(objectMapper.writeValueAsString(messageObject))
         .messageAttributes(
