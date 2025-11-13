@@ -144,7 +144,8 @@ class SuicideRiskController(
     ],
   )
   fun deleteSuicideRisk(@PathVariable id: UUID) {
-    suicideRiskService.deleteSuicideRisk(id)
+    val crn = suicideRiskService.deleteSuicideRisk(id)
+    sqsService.sendDeleteDomainEvent(crn, id)
   }
 
   @GetMapping("/{uuid}/pdf")

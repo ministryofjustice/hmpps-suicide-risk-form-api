@@ -48,4 +48,33 @@ class SnsService(
 
     publishResponse.get(5, TimeUnit.SECONDS).messageId() ?: throw MessagingException("Unable to publish creation message")
   }
+  fun sendDeleteDomainEvent(crn: String, id: UUID) {
+    val outboundTopic = hmppsQueueService.findByTopicId("hmppssuicideriskformpublishtopic")
+      ?: throw MissingQueueException("HmppsTopic hmppssuicideriskformpublishtopic not found")
+    val messageObject = DomainEventsMessage(
+      description = "A suicide risk form has been deleted",
+      version = 1,
+      occurredAt = ZonedDateTime.now(ZoneId.of("Europe/London")),
+      eventType = "probation-case.suicide-risk-form.deleted",
+      personReference = PersonReference(listOf(Identifiers(type = "crn", value = crn))),
+      detailUrl = null,
+      additionalInformation = mapOf(
+        "suicideRiskFormId" to id,
+        "username" to SecurityContextHolder.getContext().authentication.name,
+      ),
+
+    )
+    val publishResponse = outboundTopic.snsClient.publish(
+      PublishRequest.builder().topicArn(outboundTopicArn).message(objectMapper.writeValueAsString(messageObject))
+        .messageAttributes(
+          mapOf(
+            "eventType" to MessageAttributeValue.builder().dataType("String")
+              .stringValue("probation-case.suicide-risk-form.deleted").build(),
+          ),
+        ).build(),
+    )
+
+    publishResponse.get(5, TimeUnit.SECONDS).messageId()
+      ?: throw MessagingException("Unable to publish creation message")
+  }
 }
