@@ -115,8 +115,20 @@ class SuicideRiskController(
     suicideRiskService.updateSuicideRisk(id, suicideRisk)
 
     if (original != null && original.completedDate == null && suicideRisk.completedDate != null) {
-      sqsService.sendPublishDomainEvent(suicideRisk, id)
+      performCompletionSteps(suicideRisk, id)
     }
+  }
+
+  fun performCompletionSteps(suicideRisk: SuicideRisk, id: UUID) {
+    // send publish message
+    sqsService.sendPublishDomainEvent(suicideRisk, id);
+
+    //create a magic link
+
+    //after poc can loop through all the emails
+
+    // email each person on the list. Initial POC will just email 1 person
+//    emailService
   }
 
   @DeleteMapping("/{id}")

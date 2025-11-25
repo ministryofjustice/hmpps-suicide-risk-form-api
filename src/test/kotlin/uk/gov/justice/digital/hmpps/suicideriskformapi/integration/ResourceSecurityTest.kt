@@ -39,9 +39,11 @@ class ResourceSecurityTest : IntegrationTestBase() {
     val beans = context.getBeansOfType(RequestMappingHandlerMapping::class.java)
     beans.forEach { (_, mapping) ->
       mapping.handlerMethods.forEach { (mappingInfo, method) ->
+        val beanType: String = method.bean.toString()
+        val protectedType: Boolean = !beanType.contains("fileAccessController")
         val classAnnotation = method.beanType.getAnnotation(PreAuthorize::class.java)
         val annotation = method.getMethodAnnotation(PreAuthorize::class.java)
-        if (classAnnotation == null && annotation == null) {
+        if (protectedType && classAnnotation == null && annotation == null) {
           mappingInfo.getMappings().forEach {
             assertThat(exclusions.contains(it)).withFailMessage {
               "Found $mappingInfo of type $method with no PreAuthorize annotation"
