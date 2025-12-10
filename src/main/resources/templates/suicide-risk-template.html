@@ -53,7 +53,7 @@
       <td th:text="${#temporals.format(suicideRisk.dateOfBirth, 'dd/MM/yyyy')}">{dateOfBirth}</td>
     </tr>
     <tr>
-      <th>Age in Years</th>
+      <th>Calculated Age</th>
       <td><span th:if="${suicideRisk.dateOfBirth != null}" th:text="${T(java.time.Period).between(suicideRisk.dateOfBirth, T(java.time.LocalDate).now()).getYears()}"></span>
       </td>
     </tr>
@@ -343,6 +343,9 @@
   font-weight: bold;
   color: #555;">
   <div>NPS Breach Pack Suicide Form</div>
+  <div style="display: table-cell; text-align: center; vertical-align: bottom">
+    <strong><span style=" color:#808080">OFFICIAL</span></strong>
+  </div>
   <div th:text="'Issue Date: ' + ${#dates.format(#dates.createNow(), 'dd/MM/yyyy')}"></div>
 </footer>
 
