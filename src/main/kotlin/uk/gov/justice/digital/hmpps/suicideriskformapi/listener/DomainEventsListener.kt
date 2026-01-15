@@ -74,6 +74,21 @@ class DomainEventsListener(
       "probation-case.deleted.gdpr" -> {
         message.crn?.let { suicideRiskService.deleteAllByCrn(it) }
       }
+
+      "probation-case.non-statutory-intervention.moved" -> {
+        // Update CRNs where appropriate
+        val suicideRisks = suicideRiskService.getActiveSuicideRisksForCrn(message.sourceCrn)
+        suicideRisks.forEach {
+          nDeliusIntegrationService.getCrnForSuicideRiskUuid(it.id.toString())?.crn?.let { crn ->
+            suicideRiskService.updateSuicideRiskCrn(
+              it,
+              crn,
+            )
+          }
+        }
+
+        updateReviewEvent(ReviewEventType.MOVE_NSI, suicideRisks, message.occurredAt)
+      }
     }
   }
 

@@ -307,5 +307,78 @@ class DomainEventTest : IntegrationTestBase() {
         assertThat(suicideRiskRefresh).isEmpty()
       }
     }
+
+    @Test
+    fun `move nsi should update CRN for active suicide risk`() {
+      webTestClient.post()
+        .uri("/suicide-risk")
+        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+        .bodyValue(SuicideRisk(crn = "X000171"))
+        .exchange()
+        .expectStatus()
+        .isCreated
+
+      val suicideRisk = suicideRiskRepository.findByCrn("X000171").single()
+      assertThat(suicideRisk.crn).isEqualTo("X000171")
+      assertThat(suicideRisk.id).isNotNull()
+
+      val message = "{\"eventType\":\"probation-case.non-statutory-intervention.moved\",\"version\":1,\"occurredAt\":\"2025-04-15T09:49:55.560241+01:00\",\"description\":\"A non-statutory intervention has been moved\",\"additionalInformation\":{\"sourceCRN\":\"X000171\",\"targetCRN\":\"X000102\",\"sourceEventNumber\":\"1\",\"targetEventNumber\":\"2\",\"nsiId\":\"87384\",\"nsiMainTypeCode\":\"BRE\"},\"personReference\":{\"identifiers\":[{\"type\":\"CRN\",\"value\":\"X000102\"}]}}\n"
+
+      val responseFuture = inboundSnsClient.publish(
+        PublishRequest.builder().topicArn("arn:aws:sns:eu-west-2:000000000000:hmppssuicideriskformtopic").message(message).messageAttributes(
+          mapOf("eventType" to MessageAttributeValue.builder().dataType("String").stringValue("probation-case.non-statutory-intervention.moved").build()),
+        ).build(),
+      )
+      val response = responseFuture.get(10, TimeUnit.SECONDS)
+
+      assertThat(response.messageId()).isNotNull()
+
+      Awaitility.await().atMost(10, TimeUnit.SECONDS).untilAsserted {
+        val suicideRiskUpdated: SuicideRiskEntity = suicideRiskRepository.findById(suicideRisk.id).orElse(null)
+        assertThat(suicideRiskUpdated).isNotNull
+        assertThat(suicideRiskUpdated.crn).isEqualTo("X000103")
+        assertThat(suicideRiskUpdated.id).isNotNull()
+        assertThat(suicideRiskUpdated.reviewRequiredDate).isNotNull()
+        assertThat(suicideRiskUpdated.reviewEvent).isEqualTo("MOVE_NSI")
+      }
+    }
+
+    @Test
+    fun `move nsi should not update CRN for completed suicide risk`() {
+      webTestClient.post()
+        .uri("/suicide-risk")
+        .headers(setAuthorisation(roles = listOf("ROLE_SUICIDE_RISK")))
+        .bodyValue(SuicideRisk(crn = "X000181"))
+        .exchange()
+        .expectStatus()
+        .isCreated
+
+      val suicideRisk = suicideRiskRepository.findByCrn("X000181").single()
+      assertThat(suicideRisk.crn).isEqualTo("X000181")
+      assertThat(suicideRisk.id).isNotNull()
+
+      suicideRisk.completedDate = ZonedDateTime.now()
+      suicideRiskRepository.save(suicideRisk)
+
+      val message = "{\"eventType\":\"probation-case.non-statutory-intervention.moved\",\"version\":1,\"occurredAt\":\"2025-04-15T09:49:55.560241+01:00\",\"description\":\"A non-statutory intervention has been moved\",\"additionalInformation\":{\"sourceCRN\":\"X000181\",\"targetCRN\":\"X000102\",\"sourceEventNumber\":\"1\",\"targetEventNumber\":\"2\",\"nsiId\":\"87384\",\"nsiMainTypeCode\":\"BRE\"},\"personReference\":{\"identifiers\":[{\"type\":\"CRN\",\"value\":\"X000102\"}]}}\n"
+
+      val responseFuture = inboundSnsClient.publish(
+        PublishRequest.builder().topicArn("arn:aws:sns:eu-west-2:000000000000:hmppssuicideriskformtopic").message(message).messageAttributes(
+          mapOf("eventType" to MessageAttributeValue.builder().dataType("String").stringValue("probation-case.merge.completed").build()),
+        ).build(),
+      )
+      val response = responseFuture.get(10, TimeUnit.SECONDS)
+
+      assertThat(response.messageId()).isNotNull()
+
+      Awaitility.await().atMost(10, TimeUnit.SECONDS).untilAsserted {
+        val suicideRiskUpdated: SuicideRiskEntity = suicideRiskRepository.findById(suicideRisk.id).orElse(null)
+        assertThat(suicideRiskUpdated).isNotNull
+        assertThat(suicideRiskUpdated.crn).isEqualTo("X000181")
+        assertThat(suicideRiskUpdated.id).isNotNull()
+        assertThat(suicideRiskUpdated.reviewRequiredDate).isNull()
+        assertThat(suicideRiskUpdated.reviewEvent).isNull()
+      }
+    }
   }
 }

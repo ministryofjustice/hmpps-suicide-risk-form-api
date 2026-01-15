@@ -4,4 +4,5 @@ enum class ReviewEventType {
   MERGE,
   UNMERGE,
   EVENT_MOVE,
+  MOVE_NSI,
 }
