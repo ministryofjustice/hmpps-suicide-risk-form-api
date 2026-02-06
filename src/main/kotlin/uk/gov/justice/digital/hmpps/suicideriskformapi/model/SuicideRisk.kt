@@ -24,7 +24,7 @@ data class SuicideRisk(
   var currentPsychTreatment: String? = null,
   var postalAddress: Address? = null,
   var dateOfBirth: LocalDate? = null,
-  var prisonNumber: String? = null,
+  var nomsNumber: String? = null,
   var workAddress: Address? = null,
   var basicDetailsSaved: Boolean? = null,
   var informationSaved: Boolean? = null,
