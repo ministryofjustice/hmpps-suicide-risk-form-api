@@ -66,6 +66,12 @@ management:
     info:
       cache:
         time-to-live: 2000ms
+application:
+  notify:
+    suicide-risk-form:
+      template: 6d2e680d-ff01-4fc4-b082-1c3a4c28a1af
+      key: srfteamkey-3aea45ad-ad3c-4c59-9ae7-62c8d03c0e95-7d347d18-dc4a-400a-b10d-ba528560af4e
+
 
 hmpps.sar.additionalAccessRole: SUICIDE_RISK
 
