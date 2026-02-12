@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.Contact
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.InitialiseSuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk
+import uk.gov.justice.digital.hmpps.suicideriskformapi.service.NotificationService
 import uk.gov.justice.digital.hmpps.suicideriskformapi.service.SnsService
 import uk.gov.justice.digital.hmpps.suicideriskformapi.service.SuicideRiskService
 import uk.gov.justice.hmpps.kotlin.common.ErrorResponse
@@ -37,6 +38,7 @@ import java.util.UUID
 class SuicideRiskController(
   private val suicideRiskService: SuicideRiskService,
   private val sqsService: SnsService,
+  private val notificationService: NotificationService,
 ) {
   @GetMapping("/{uuid}")
   @Operation(
@@ -121,14 +123,22 @@ class SuicideRiskController(
 
   fun performCompletionSteps(suicideRisk: SuicideRisk, id: UUID) {
     // send publish message
-    sqsService.sendPublishDomainEvent(suicideRisk, id);
+    sqsService.sendPublishDomainEvent(suicideRisk, id)
 
-    //create a magic link
+    // Generate a copy of the PDF to send to Notify
+    var pdfBytes = suicideRiskService.getSuicideRiskAsPdf(id, suicideRisk, false)
 
-    //after poc can loop through all the emails
-
-    // email each person on the list. Initial POC will just email 1 person
-//    emailService
+    // after poc can loop through all the emails
+    if (!suicideRisk.suicideRiskContactList.isEmpty()) {
+      for (suicideRiskFormContact in suicideRisk.suicideRiskContactList) {
+        if (suicideRiskFormContact.sendFormViaEmail == true &&
+          suicideRiskFormContact.emailAddress != null &&
+          suicideRiskFormContact.emailAddress.length > 0
+        ) {
+          notificationService.sendEmailNotificationWithAttachment(suicideRiskFormContact.emailAddress, pdfBytes)
+        }
+      }
+    }
   }
 
   @DeleteMapping("/{id}")
