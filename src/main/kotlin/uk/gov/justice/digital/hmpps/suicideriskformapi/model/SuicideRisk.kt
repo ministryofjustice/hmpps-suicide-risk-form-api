@@ -35,4 +35,5 @@ data class SuicideRisk(
   var reviewEvent: String? = null,
   @field:JsonSetter(nulls = Nulls.AS_EMPTY)
   var suicideRiskContactList: List<Contact> = emptyList(),
+  var officerEmailAddress: String? = null,
 )

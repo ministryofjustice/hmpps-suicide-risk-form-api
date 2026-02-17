@@ -46,7 +46,7 @@ generic-service:
       DATABASE_PASSWORD: database_password
       DATABASE_NAME: database_name
     notify-service:
-      APPLICATION_NOTIFY_KEY: "APPLICATION_NOTIFY_KEY"
+      APPLICATION_NOTIFY_SUICIDE-RISK-FORM_KEY: api-key
       
 
 gotenberg:

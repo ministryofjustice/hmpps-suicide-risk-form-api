@@ -135,6 +135,7 @@ class SuicideRiskService(
     contactSaved = contactSaved,
     reviewRequiredDate = reviewRequiredDate,
     reviewEvent = reviewEvent,
+    officerEmailAddress = officerEmailAddress,
     suicideRiskContactList = suicideRiskContactList.map {
       it.toEntity(
         existingEntity.suicideRiskContactList.find { existingContactEnitiy ->
@@ -169,6 +170,7 @@ class SuicideRiskService(
     contactSaved = contactSaved,
     reviewRequiredDate = reviewRequiredDate,
     reviewEvent = reviewEvent,
+    officerEmailAddress = officerEmailAddress,
     suicideRiskContactList = suicideRiskContactList.map { it.toEntity() },
   )
 
@@ -197,6 +199,7 @@ class SuicideRiskService(
     contactSaved = contactSaved,
     reviewRequiredDate = reviewRequiredDate,
     reviewEvent = reviewEvent,
+    officerEmailAddress = officerEmailAddress,
     suicideRiskContactList = suicideRiskContactList.map {
       it.toModel()
     },

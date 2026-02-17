@@ -130,12 +130,20 @@ class SuicideRiskController(
 
     // after poc can loop through all the emails
     if (!suicideRisk.suicideRiskContactList.isEmpty()) {
+      // generate the personalisations
+      var personalisations: MutableMap<String?, Any?> = HashMap()
+      personalisations.put("crn", suicideRisk.crn)
+      personalisations.put("offender_full_name", suicideRisk.titleAndFullName)
+      personalisations.put("officer_name", suicideRisk.sheetSentBy)
+      personalisations.put("officer_phone", suicideRisk.telephoneNumber)
+      personalisations.put("officer_email", suicideRisk.officerEmailAddress)
+
       for (suicideRiskFormContact in suicideRisk.suicideRiskContactList) {
         if (suicideRiskFormContact.sendFormViaEmail == true &&
           suicideRiskFormContact.emailAddress != null &&
           suicideRiskFormContact.emailAddress.length > 0
         ) {
-          notificationService.sendEmailNotificationWithAttachment(suicideRiskFormContact.emailAddress, pdfBytes)
+          notificationService.sendEmailNotificationWithAttachment(suicideRiskFormContact.emailAddress, personalisations, pdfBytes)
         }
       }
     }

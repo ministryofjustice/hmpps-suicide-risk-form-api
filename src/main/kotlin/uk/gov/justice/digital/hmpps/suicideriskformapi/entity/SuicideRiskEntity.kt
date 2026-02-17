@@ -62,4 +62,5 @@ data class SuicideRiskEntity(
   var lastUpdatedDatetime: LocalDateTime? = null,
   @LastModifiedBy
   var lastUpdatedUser: String? = null,
+  var officerEmailAddress: String? = null,
 )
