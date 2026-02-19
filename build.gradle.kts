@@ -9,6 +9,8 @@ configurations {
   testImplementation { exclude(group = "org.junit.vintage") }
 }
 
+ext["testcontainers.version"] = "1.21.4"
+
 dependencies {
   implementation("uk.gov.justice.service.hmpps:hmpps-kotlin-spring-boot-starter:1.8.2")
   implementation("org.springframework.boot:spring-boot-starter-webflux")
