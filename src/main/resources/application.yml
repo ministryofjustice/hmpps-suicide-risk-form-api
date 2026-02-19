@@ -91,6 +91,10 @@ spring.datasource.url: jdbc:tc:postgresql:17:///db
 
 ---
 spring.config.activate.on-profile: [test, dev]
+application:
+  notify:
+    suicide-risk-form:
+      key: some-super-secret-key
 hmpps.sqs:
   provider: localstack
   queues:
