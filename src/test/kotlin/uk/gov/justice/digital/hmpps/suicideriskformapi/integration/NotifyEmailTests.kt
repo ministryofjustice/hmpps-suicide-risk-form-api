@@ -3,7 +3,6 @@ package uk.gov.justice.digital.hmpps.suicideriskformapi.integration
 import org.apache.commons.io.FileUtils
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.test.context.ActiveProfiles
@@ -33,7 +32,6 @@ class NotifyEmailTests : IntegrationTestBase() {
   //
   //  test:
   //    email: replace-this-with-the-test-email-address
-
 
 //  @Test
   @Disabled("For manual execution only. Not to be run by CI")
