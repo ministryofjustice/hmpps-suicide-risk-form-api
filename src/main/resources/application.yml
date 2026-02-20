@@ -66,6 +66,10 @@ management:
     info:
       cache:
         time-to-live: 2000ms
+application:
+  notify:
+    suicide-risk-form:
+      template: 6c66ee34-f165-466c-8127-80c585e6015b
 
 hmpps.sar.additionalAccessRole: SUICIDE_RISK
 
@@ -87,6 +91,10 @@ spring.datasource.url: jdbc:tc:postgresql:17:///db
 
 ---
 spring.config.activate.on-profile: [test, dev]
+application:
+  notify:
+    suicide-risk-form:
+      key: some-super-secret-key
 hmpps.sqs:
   provider: localstack
   queues:
