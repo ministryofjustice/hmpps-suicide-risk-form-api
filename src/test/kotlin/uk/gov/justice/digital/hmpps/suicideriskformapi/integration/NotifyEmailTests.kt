@@ -34,8 +34,8 @@ class NotifyEmailTests : IntegrationTestBase() {
   //  test:
   //    email: replace-this-with-the-test-email-address
 
-  @Test
   @Disabled("For manual execution only. Not to be run by CI")
+  @Test
   fun `should send an email with an attachment as magic link`() {
     val classLoader = javaClass.getClassLoader()
     val file = File(classLoader.getResource("test_suicide_risk_pdf.pdf").getFile())
