@@ -2,7 +2,7 @@ package uk.gov.justice.digital.hmpps.suicideriskformapi.integration
 
 import org.apache.commons.io.FileUtils
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Ignore
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -35,7 +35,7 @@ class NotifyEmailTests : IntegrationTestBase() {
   //    email: replace-this-with-the-test-email-address
 
   @Test
-  @Ignore
+  @Disabled("For manual execution only. Not to be run by CI")
   fun `should send an email with an attachment as magic link`() {
     val classLoader = javaClass.getClassLoader()
     val file = File(classLoader.getResource("test_suicide_risk_pdf.pdf").getFile())
