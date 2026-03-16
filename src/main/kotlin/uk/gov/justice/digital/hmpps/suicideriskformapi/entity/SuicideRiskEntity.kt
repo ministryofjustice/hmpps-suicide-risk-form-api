@@ -63,4 +63,5 @@ data class SuicideRiskEntity(
   @LastModifiedBy
   var lastUpdatedUser: String? = null,
   var officerEmailAddress: String? = null,
+  var signedByRo: Boolean? = null,
 )
