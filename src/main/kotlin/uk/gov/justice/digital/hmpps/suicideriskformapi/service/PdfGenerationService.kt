@@ -28,6 +28,18 @@ class PdfGenerationService(
   fun generateHtml(suicideRisk: SuicideRisk?): String? {
     val context = Context()
     context.setVariable("suicideRisk", suicideRisk)
+    // concatenate who signed to the end of officer name
+    if (suicideRisk != null) {
+      if (suicideRisk.sheetSentBy != null) {
+        if (suicideRisk.signedByRo != null && suicideRisk.signedByRo == true) {
+          context.setVariable("signingOfficerWithDescription", suicideRisk.sheetSentBy + " (Responsible Officer)")
+        } else if (suicideRisk.signedByRo != null && suicideRisk.signedByRo == false) {
+          context.setVariable("signingOfficerWithDescription", suicideRisk.sheetSentBy + " (on behalf of the Responsible Officer)")
+        } else {
+          context.setVariable("signingOfficerWithDescription", "")
+        }
+      }
+    }
 
     return templateEngine.process("suicide-risk-template", context)
   }
