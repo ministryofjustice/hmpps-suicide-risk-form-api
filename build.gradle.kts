@@ -19,7 +19,7 @@ dependencies {
   implementation("org.flywaydb:flyway-core")
   implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
   implementation("org.apache.pdfbox:pdfbox:2.0.36")
-  implementation("uk.gov.justice.service.hmpps:hmpps-sqs-spring-boot-starter:5.6.3")
+  implementation("uk.gov.justice.service.hmpps:hmpps-sqs-spring-boot-starter:7.3.1")
   implementation("uk.gov.service.notify:notifications-java-client:6.0.0-RELEASE")
 
   runtimeOnly("org.flywaydb:flyway-database-postgresql")
