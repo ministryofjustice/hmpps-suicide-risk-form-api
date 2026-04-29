@@ -12,7 +12,7 @@ configurations {
 ext["testcontainers.version"] = "1.21.4"
 
 dependencies {
-  implementation("uk.gov.justice.service.hmpps:hmpps-kotlin-spring-boot-starter:1.8.2")
+  implementation("uk.gov.justice.service.hmpps:hmpps-kotlin-spring-boot-starter:2.2.0")
   implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.16")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
