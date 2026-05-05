@@ -126,7 +126,7 @@ class SuicideRiskService(
     currentPsychTreatment = currentPsychTreatment,
     postalAddressEntity = postalAddress?.toEntity(),
     dateOfBirth = dateOfBirth,
-    prisonNumber = prisonNumber,
+    nomsNumber = nomsNumber,
     workAddressEntity = workAddress?.toEntity(),
     basicDetailsSaved = basicDetailsSaved,
     informationSaved = informationSaved,
@@ -135,6 +135,8 @@ class SuicideRiskService(
     contactSaved = contactSaved,
     reviewRequiredDate = reviewRequiredDate,
     reviewEvent = reviewEvent,
+    officerEmailAddress = officerEmailAddress,
+    signedByRo = signedByRo,
     suicideRiskContactList = suicideRiskContactList.map {
       it.toEntity(
         existingEntity.suicideRiskContactList.find { existingContactEnitiy ->
@@ -160,7 +162,7 @@ class SuicideRiskService(
     currentPsychTreatment = currentPsychTreatment,
     postalAddressEntity = postalAddress?.toEntity(),
     dateOfBirth = dateOfBirth,
-    prisonNumber = prisonNumber,
+    nomsNumber = nomsNumber,
     workAddressEntity = workAddress?.toEntity(),
     basicDetailsSaved = basicDetailsSaved,
     informationSaved = informationSaved,
@@ -169,6 +171,8 @@ class SuicideRiskService(
     contactSaved = contactSaved,
     reviewRequiredDate = reviewRequiredDate,
     reviewEvent = reviewEvent,
+    officerEmailAddress = officerEmailAddress,
+    signedByRo = signedByRo,
     suicideRiskContactList = suicideRiskContactList.map { it.toEntity() },
   )
 
@@ -188,7 +192,7 @@ class SuicideRiskService(
     currentPsychTreatment = currentPsychTreatment,
     postalAddress = postalAddressEntity?.toModel(),
     dateOfBirth = dateOfBirth,
-    prisonNumber = prisonNumber,
+    nomsNumber = nomsNumber,
     workAddress = workAddressEntity?.toModel(),
     basicDetailsSaved = basicDetailsSaved,
     informationSaved = informationSaved,
@@ -197,6 +201,8 @@ class SuicideRiskService(
     contactSaved = contactSaved,
     reviewRequiredDate = reviewRequiredDate,
     reviewEvent = reviewEvent,
+    officerEmailAddress = officerEmailAddress,
+    signedByRo = signedByRo,
     suicideRiskContactList = suicideRiskContactList.map {
       it.toModel()
     },

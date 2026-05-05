@@ -2,7 +2,6 @@ package uk.gov.justice.digital.hmpps.suicideriskformapi.integration.health
 
 import org.junit.jupiter.api.Test
 import uk.gov.justice.digital.hmpps.suicideriskformapi.integration.IntegrationTestBase
-import kotlin.text.get
 
 class HealthCheckTest : IntegrationTestBase() {
 

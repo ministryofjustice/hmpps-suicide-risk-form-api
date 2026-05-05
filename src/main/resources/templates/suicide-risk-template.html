@@ -82,8 +82,8 @@
                     </span></td>
     </tr>
     <tr>
-      <th>Prison Number (if any)</th>
-      <td th:text="${suicideRisk.prisonNumber}">{prisonNumber}</td>
+      <th>NOMS Number (if any)</th>
+      <td th:text="${suicideRisk.nomsNumber}">{nomsNumber}</td>
     </tr>
   </table>
 
@@ -281,10 +281,11 @@
 
   <p>INFORMATION SHEET SENT BY:</p>
 
+  <!--/*@thymesVar id="suicideRisk" type="uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk"*/-->
   <table>
     <tr>
       <th>Name</th>
-      <td th:text="${suicideRisk.sheetSentBy}">{officerName}</td>
+      <td th:text="${signingOfficerWithDescription}">Officer Name</td>
     </tr>
     <tr>
       <th>Signature</th>

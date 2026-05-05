@@ -41,7 +41,7 @@ data class SuicideRiskEntity(
   @JoinColumn(name = "postal_address_id", unique = true)
   var postalAddressEntity: AddressEntity? = null,
   var dateOfBirth: LocalDate? = null,
-  var prisonNumber: String? = null,
+  var nomsNumber: String? = null,
   @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
   @JoinColumn(name = "work_address_id", unique = true)
   var workAddressEntity: AddressEntity? = null,
@@ -62,4 +62,6 @@ data class SuicideRiskEntity(
   var lastUpdatedDatetime: LocalDateTime? = null,
   @LastModifiedBy
   var lastUpdatedUser: String? = null,
+  var officerEmailAddress: String? = null,
+  var signedByRo: Boolean? = null,
 )

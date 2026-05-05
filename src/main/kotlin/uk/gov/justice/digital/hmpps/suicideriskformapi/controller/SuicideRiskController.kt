@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.Contact
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.InitialiseSuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk
+import uk.gov.justice.digital.hmpps.suicideriskformapi.service.NotificationService
 import uk.gov.justice.digital.hmpps.suicideriskformapi.service.SnsService
 import uk.gov.justice.digital.hmpps.suicideriskformapi.service.SuicideRiskService
 import uk.gov.justice.hmpps.kotlin.common.ErrorResponse
@@ -37,6 +38,7 @@ import java.util.UUID
 class SuicideRiskController(
   private val suicideRiskService: SuicideRiskService,
   private val sqsService: SnsService,
+  private val notificationService: NotificationService,
 ) {
   @GetMapping("/{uuid}")
   @Operation(
@@ -115,7 +117,35 @@ class SuicideRiskController(
     suicideRiskService.updateSuicideRisk(id, suicideRisk)
 
     if (original != null && original.completedDate == null && suicideRisk.completedDate != null) {
-      sqsService.sendPublishDomainEvent(suicideRisk, id)
+      performCompletionSteps(suicideRisk, id)
+    }
+  }
+
+  fun performCompletionSteps(suicideRisk: SuicideRisk, id: UUID) {
+    // send publish message
+    sqsService.sendPublishDomainEvent(suicideRisk, id)
+
+    // Generate a copy of the PDF to send to Notify
+    var pdfBytes = suicideRiskService.getSuicideRiskAsPdf(id, suicideRisk, false)
+
+    // after poc can loop through all the emails
+    if (!suicideRisk.suicideRiskContactList.isEmpty()) {
+      // generate the personalisations
+      var personalisations: MutableMap<String?, Any?> = HashMap()
+      personalisations.put("crn", suicideRisk.crn)
+      personalisations.put("offender_full_name", suicideRisk.titleAndFullName)
+      personalisations.put("officer_name", suicideRisk.sheetSentBy)
+      personalisations.put("officer_phone", suicideRisk.telephoneNumber)
+      personalisations.put("officer_email", suicideRisk.officerEmailAddress)
+
+      for (suicideRiskFormContact in suicideRisk.suicideRiskContactList) {
+        if (suicideRiskFormContact.sendFormViaEmail == true &&
+          suicideRiskFormContact.emailAddress != null &&
+          suicideRiskFormContact.emailAddress.length > 0
+        ) {
+          notificationService.sendEmailNotificationWithAttachment(suicideRiskFormContact.emailAddress, personalisations, pdfBytes)
+        }
+      }
     }
   }
 
