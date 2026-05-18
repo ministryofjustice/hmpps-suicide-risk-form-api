@@ -18,7 +18,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("org.flywaydb:flyway-core")
   implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-  implementation("org.apache.pdfbox:pdfbox:2.0.36")
+  implementation("org.apache.pdfbox:pdfbox:3.0.7")
   implementation("uk.gov.justice.service.hmpps:hmpps-sqs-spring-boot-starter:5.6.3")
   implementation("uk.gov.service.notify:notifications-java-client:6.0.0-RELEASE")
 
