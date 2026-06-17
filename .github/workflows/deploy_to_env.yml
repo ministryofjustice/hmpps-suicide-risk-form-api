@@ -32,7 +32,7 @@ jobs:
     name: Deploy to environment
     needs:
       - helm_lint
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@d79e83be2cc392b981dd92c8f6f85007d18032e9 # v2.10.1
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@cf14699d1d0d134d425afeaefd78d320da62e301 # v2.14.12
     secrets: inherit
     with:
       environment: ${{ inputs.environment }}
