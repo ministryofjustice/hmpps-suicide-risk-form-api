@@ -19,6 +19,7 @@ generic-service:
       - unilink_staff
       - moj_cloud_platform
       - delius-test
+      - mod-platform-non-live
 
 # CloudPlatform AlertManager receiver to route prometheus alerts to slack
 # See https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/how-to-create-alarms.html#creating-your-own-custom-alerts
