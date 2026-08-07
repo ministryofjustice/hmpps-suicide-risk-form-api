@@ -19,6 +19,7 @@ generic-service:
       - unilink_staff
       - moj_cloud_platform
       - delius-preprod
+      - mod-platform-live
 
 
 # CloudPlatform AlertManager receiver to route prometheus alerts to slack
