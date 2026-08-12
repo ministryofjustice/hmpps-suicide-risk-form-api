@@ -37,4 +37,6 @@ data class SuicideRisk(
   var suicideRiskContactList: List<Contact> = emptyList(),
   var officerEmailAddress: String? = null,
   var signedByRo: Boolean? = null,
+  var terminated: Boolean? = false,
+  var terminatedUnterminatedDate: LocalDateTime? = null,
 )

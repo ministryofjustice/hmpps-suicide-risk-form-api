@@ -64,4 +64,6 @@ data class SuicideRiskEntity(
   var lastUpdatedUser: String? = null,
   var officerEmailAddress: String? = null,
   var signedByRo: Boolean? = null,
+  var terminated: Boolean? = false,
+  var terminatedUnterminatedDate: LocalDateTime? = null,
 )
