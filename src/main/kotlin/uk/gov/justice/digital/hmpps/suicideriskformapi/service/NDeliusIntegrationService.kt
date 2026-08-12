@@ -16,8 +16,19 @@ class NDeliusIntegrationService(
     .bodyToMono(NDeliusCrn::class.java)
     .onErrorResume(WebClientResponseException.NotFound::class.java) { Mono.empty() }
     .block()
+
+  fun getBreachEventDocuments(crn: String, eventNumber: String): List<String> = webClient.get()
+    .uri("/srf-event-documents/{crn}/{eventNumber}", crn, eventNumber)
+    .retrieve()
+    .bodyToMono(SuicideRiskIdList::class.java)
+    .onErrorResume(WebClientResponseException.NotFound::class.java) { Mono.empty() }
+    .block()?.srfIdList ?: emptyList()
 }
 
 data class NDeliusCrn(
   val crn: String,
+)
+
+data class SuicideRiskIdList(
+  val srfIdList: List<String>
 )

@@ -89,11 +89,31 @@ class DomainEventsListener(
 
         updateReviewEvent(ReviewEventType.MOVE_NSI, suicideRisks, message.occurredAt)
       }
+
+      "probation-case.sentence.terminated" -> {
+        val breachNoticeIds = nDeliusIntegrationService.getBreachEventDocuments(message.crn!!, message.additionalInformation?.get("eventNumber") as String)
+        updateTerminationEvent(true, breachNoticeIds, message.occurredAt)
+      }
+
+      "probation-case.sentence.unterminated" -> {
+        val breachNoticeIds = nDeliusIntegrationService.getBreachEventDocuments(message.crn!!, message.additionalInformation?.get("eventNumber") as String)
+        updateTerminationEvent(false, breachNoticeIds, message.occurredAt)
+      }
     }
   }
 
   private fun updateReviewEvent(eventType: ReviewEventType, breachNotices: Collection<SuicideRiskEntity>, occurredAt: ZonedDateTime) {
     breachNotices.forEach { breachNotice -> suicideRiskService.updateReviewEvent(eventType, breachNotice, occurredAt) }
+  }
+
+  private fun updateTerminationEvent(terminated: Boolean, srfIds: Collection<String>, occurredAt: ZonedDateTime) {
+    srfIds.forEach { srfId ->
+      suicideRiskService.updateTerminatedStatus(
+        terminated,
+        srfId,
+        occurredAt,
+      )
+    }
   }
 }
 

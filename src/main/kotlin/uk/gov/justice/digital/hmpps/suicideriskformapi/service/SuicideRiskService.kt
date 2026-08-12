@@ -137,6 +137,8 @@ class SuicideRiskService(
     reviewEvent = reviewEvent,
     officerEmailAddress = officerEmailAddress,
     signedByRo = signedByRo,
+    terminated = terminated,
+    terminatedUnterminatedDate = terminatedUnterminatedDate,
     suicideRiskContactList = suicideRiskContactList.map {
       it.toEntity(
         existingEntity.suicideRiskContactList.find { existingContactEnitiy ->
@@ -173,6 +175,8 @@ class SuicideRiskService(
     reviewEvent = reviewEvent,
     officerEmailAddress = officerEmailAddress,
     signedByRo = signedByRo,
+    terminated = terminated,
+    terminatedUnterminatedDate = terminatedUnterminatedDate,
     suicideRiskContactList = suicideRiskContactList.map { it.toEntity() },
   )
 
@@ -203,6 +207,8 @@ class SuicideRiskService(
     reviewEvent = reviewEvent,
     officerEmailAddress = officerEmailAddress,
     signedByRo = signedByRo,
+    terminated = terminated,
+    terminatedUnterminatedDate = terminatedUnterminatedDate,
     suicideRiskContactList = suicideRiskContactList.map {
       it.toModel()
     },
@@ -287,6 +293,13 @@ class SuicideRiskService(
   fun updateReviewEvent(eventType: ReviewEventType, suicideRisk: SuicideRiskEntity, occurredAt: ZonedDateTime) {
     suicideRisk.reviewEvent = eventType.name
     suicideRisk.reviewRequiredDate = occurredAt.toLocalDateTime()
+    suicideRiskRepository.save(suicideRisk)
+  }
+
+  fun updateTerminatedStatus(newStatus: Boolean, suicideRiskId: String, occurredAt: ZonedDateTime) {
+    val suicideRisk = suicideRiskRepository.findById(UUID.fromString(suicideRiskId)).orElseThrow { IllegalArgumentException("Suicide risk not found") }
+    suicideRisk.terminated = newStatus
+    suicideRisk.terminatedUnterminatedDate = occurredAt.toLocalDateTime()
     suicideRiskRepository.save(suicideRisk)
   }
 
