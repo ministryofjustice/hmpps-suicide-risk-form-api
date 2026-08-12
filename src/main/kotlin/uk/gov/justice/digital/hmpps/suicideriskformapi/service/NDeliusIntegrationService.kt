@@ -30,5 +30,5 @@ data class NDeliusCrn(
 )
 
 data class SuicideRiskIdList(
-  val srfIdList: List<String>
+  val srfIdList: List<String>,
 )
