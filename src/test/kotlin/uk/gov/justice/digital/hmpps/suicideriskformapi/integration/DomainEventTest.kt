@@ -11,7 +11,6 @@ import software.amazon.awssdk.services.sns.model.PublishRequest
 import uk.gov.justice.digital.hmpps.suicideriskformapi.entity.SuicideRiskEntity
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.repository.SuicideRiskRepository
-import java.time.LocalDateTime
 import java.time.ZonedDateTime
 import java.util.concurrent.TimeUnit
 
@@ -19,6 +18,8 @@ class DomainEventTest : IntegrationTestBase() {
 
   @Autowired
   private lateinit var suicideRiskRepository: SuicideRiskRepository
+
+  private val expectedOccurredAt = ZonedDateTime.parse("2025-04-15T09:49:55.560241+01:00").toInstant()
 
   @Nested
   @DisplayName("GET /suicide-risk/{parameter}")
@@ -54,7 +55,7 @@ class DomainEventTest : IntegrationTestBase() {
         assertThat(suicideRiskUpdated).isNotNull
         assertThat(suicideRiskUpdated.crn).isEqualTo("X000102")
         assertThat(suicideRiskUpdated.id).isNotNull()
-        assertThat(suicideRiskUpdated.reviewRequiredDate).isEqualTo(LocalDateTime.parse("2025-04-15T09:49:55.560241"))
+        assertThat(suicideRiskUpdated.reviewRequiredDate?.toInstant()).isEqualTo(expectedOccurredAt)
         assertThat(suicideRiskUpdated.reviewEvent).isEqualTo("MERGE")
       }
     }
@@ -146,7 +147,7 @@ class DomainEventTest : IntegrationTestBase() {
         assertThat(suicideRiskUpdated).isNotNull
         assertThat(suicideRiskUpdated.crn).isEqualTo("X000103")
         assertThat(suicideRiskUpdated.id).isNotNull()
-        assertThat(suicideRiskUpdated.reviewRequiredDate).isEqualTo(LocalDateTime.parse("2025-04-15T09:49:55.560241"))
+        assertThat(suicideRiskUpdated.reviewRequiredDate?.toInstant()).isEqualTo(expectedOccurredAt)
         assertThat(suicideRiskUpdated.reviewEvent).isEqualTo("UNMERGE")
       }
     }
@@ -235,7 +236,7 @@ class DomainEventTest : IntegrationTestBase() {
         assertThat(suicideRiskUpdated).isNotNull
         assertThat(suicideRiskUpdated.crn).isEqualTo("X000103")
         assertThat(suicideRiskUpdated.id).isNotNull()
-        assertThat(suicideRiskUpdated.reviewRequiredDate).isEqualTo(LocalDateTime.parse("2025-04-15T09:49:55.560241"))
+        assertThat(suicideRiskUpdated.reviewRequiredDate?.toInstant()).isEqualTo(expectedOccurredAt)
         assertThat(suicideRiskUpdated.reviewEvent).isEqualTo("EVENT_MOVE")
       }
     }
@@ -339,7 +340,7 @@ class DomainEventTest : IntegrationTestBase() {
         assertThat(suicideRiskUpdated).isNotNull
         assertThat(suicideRiskUpdated.crn).isEqualTo("X000103")
         assertThat(suicideRiskUpdated.id).isNotNull()
-        assertThat(suicideRiskUpdated.reviewRequiredDate).isEqualTo(LocalDateTime.parse("2025-04-15T09:49:55.560241"))
+        assertThat(suicideRiskUpdated.reviewRequiredDate?.toInstant()).isEqualTo(expectedOccurredAt)
         assertThat(suicideRiskUpdated.reviewEvent).isEqualTo("MOVE_NSI")
       }
     }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonSetter
 import com.fasterxml.jackson.annotation.Nulls
 import jakarta.validation.constraints.Pattern
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 data class SuicideRisk(
@@ -31,12 +30,12 @@ data class SuicideRisk(
   var treatmentSaved: Boolean? = null,
   var signAndSendSaved: Boolean? = null,
   var contactSaved: Boolean? = null,
-  var reviewRequiredDate: LocalDateTime? = null,
+  var reviewRequiredDate: ZonedDateTime? = null,
   var reviewEvent: String? = null,
   @field:JsonSetter(nulls = Nulls.AS_EMPTY)
   var suicideRiskContactList: List<Contact> = emptyList(),
   var officerEmailAddress: String? = null,
   var signedByRo: Boolean? = null,
   var terminated: Boolean? = false,
-  var terminatedUnterminatedDate: LocalDateTime? = null,
+  var terminatedUnterminatedDate: ZonedDateTime? = null,
 )

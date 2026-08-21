@@ -292,14 +292,14 @@ class SuicideRiskService(
 
   fun updateReviewEvent(eventType: ReviewEventType, suicideRisk: SuicideRiskEntity, occurredAt: ZonedDateTime) {
     suicideRisk.reviewEvent = eventType.name
-    suicideRisk.reviewRequiredDate = occurredAt.toLocalDateTime()
+    suicideRisk.reviewRequiredDate = occurredAt
     suicideRiskRepository.save(suicideRisk)
   }
 
   fun updateTerminatedStatus(newStatus: Boolean, suicideRiskId: String, occurredAt: ZonedDateTime) {
     val suicideRisk = suicideRiskRepository.findById(UUID.fromString(suicideRiskId)).orElseThrow { IllegalArgumentException("Suicide risk not found") }
     suicideRisk.terminated = newStatus
-    suicideRisk.terminatedUnterminatedDate = occurredAt.toLocalDateTime()
+    suicideRisk.terminatedUnterminatedDate = occurredAt
     suicideRiskRepository.save(suicideRisk)
   }
 
