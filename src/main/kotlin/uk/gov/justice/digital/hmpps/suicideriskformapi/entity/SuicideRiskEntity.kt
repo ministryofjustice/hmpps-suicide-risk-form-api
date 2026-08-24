@@ -50,7 +50,7 @@ data class SuicideRiskEntity(
   var treatmentSaved: Boolean? = null,
   var signAndSendSaved: Boolean? = null,
   var contactSaved: Boolean? = null,
-  var reviewRequiredDate: LocalDateTime? = null,
+  var reviewRequiredDate: ZonedDateTime? = null,
   var reviewEvent: String? = null,
   @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, mappedBy = "suicideRisk")
   val suicideRiskContactList: List<ContactEntity> = emptyList(),
@@ -65,5 +65,5 @@ data class SuicideRiskEntity(
   var officerEmailAddress: String? = null,
   var signedByRo: Boolean? = null,
   var terminated: Boolean? = false,
-  var terminatedUnterminatedDate: LocalDateTime? = null,
+  var terminatedUnterminatedDate: ZonedDateTime? = null,
 )

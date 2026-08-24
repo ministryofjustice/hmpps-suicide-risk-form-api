@@ -7,7 +7,6 @@ import uk.gov.justice.digital.hmpps.suicideriskformapi.model.Address
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.repository.SuicideRiskRepository
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 class SuicideRiskCrudTests : IntegrationTestBase() {
@@ -59,7 +58,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
       ),
       completedDate = ZonedDateTime.now(),
       reviewEvent = "Merge",
-      reviewRequiredDate = LocalDateTime.now(),
+      reviewRequiredDate = ZonedDateTime.now(),
       basicDetailsSaved = true,
       informationSaved = false,
       contactSaved = false,
@@ -125,7 +124,7 @@ class SuicideRiskCrudTests : IntegrationTestBase() {
       ),
       completedDate = ZonedDateTime.now(),
       reviewEvent = "Merge",
-      reviewRequiredDate = LocalDateTime.now(),
+      reviewRequiredDate = ZonedDateTime.now(),
       basicDetailsSaved = true,
       informationSaved = false,
       contactSaved = false,
