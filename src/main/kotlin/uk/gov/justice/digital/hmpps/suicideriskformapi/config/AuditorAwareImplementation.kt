@@ -9,5 +9,5 @@ import java.util.*
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @Component(value = "auditorAware")
 class AuditorAwareImplementation : AuditorAware<String> {
-  override fun getCurrentAuditor(): Optional<String> = Optional.ofNullable(SecurityContextHolder.getContext()?.authentication?.name)
+  override fun getCurrentAuditor(): Optional<String> = Optional.ofNullable(SecurityContextHolder.getContext().authentication?.name)
 }
