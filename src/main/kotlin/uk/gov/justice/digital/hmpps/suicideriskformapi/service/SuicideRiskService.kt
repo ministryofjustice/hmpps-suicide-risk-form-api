@@ -16,7 +16,6 @@ import uk.gov.justice.digital.hmpps.suicideriskformapi.model.InitialiseSuicideRi
 import uk.gov.justice.digital.hmpps.suicideriskformapi.model.SuicideRisk
 import uk.gov.justice.digital.hmpps.suicideriskformapi.repository.ContactRepository
 import uk.gov.justice.digital.hmpps.suicideriskformapi.repository.SuicideRiskRepository
-import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.*
 
