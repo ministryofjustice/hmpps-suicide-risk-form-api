@@ -116,7 +116,7 @@ class SuicideRiskController(
     val original = suicideRiskService.findSuicideRiskById(id)
     suicideRiskService.updateSuicideRisk(id, suicideRisk)
 
-    if (original != null && original.completedDate == null && suicideRisk.completedDate != null) {
+    if (original.completedDate == null && suicideRisk.completedDate != null) {
       performCompletionSteps(suicideRisk, id)
     }
   }
@@ -126,12 +126,12 @@ class SuicideRiskController(
     sqsService.sendPublishDomainEvent(suicideRisk, id)
 
     // Generate a copy of the PDF to send to Notify
-    var pdfBytes = suicideRiskService.getSuicideRiskAsPdf(id, suicideRisk, false)
+    val pdfBytes = suicideRiskService.getSuicideRiskAsPdf(id, suicideRisk, false)
 
     // after poc can loop through all the emails
     if (!suicideRisk.suicideRiskContactList.isEmpty()) {
       // generate the personalisations
-      var personalisations: MutableMap<String?, Any?> = HashMap()
+      val personalisations: MutableMap<String?, Any?> = HashMap()
       personalisations.put("crn", suicideRisk.crn)
       personalisations.put("offender_full_name", suicideRisk.titleAndFullName)
       personalisations.put("officer_name", suicideRisk.sheetSentBy)
@@ -198,11 +198,11 @@ class SuicideRiskController(
     ],
   )
   fun getSuicideRiskAsPdf(@PathVariable uuid: UUID): ResponseEntity<ByteArray> {
-    var suicideRisk = suicideRiskService.findSuicideRiskById(uuid)
-    var pdfBytes = suicideRiskService.getSuicideRiskAsPdf(uuid, suicideRisk, suicideRisk.completedDate == null)
-    var headers = HttpHeaders()
+    val suicideRisk = suicideRiskService.findSuicideRiskById(uuid)
+    val pdfBytes = suicideRiskService.getSuicideRiskAsPdf(uuid, suicideRisk, suicideRisk.completedDate == null)
+    val headers = HttpHeaders()
     headers.contentType = MediaType.APPLICATION_PDF
-    headers.contentDisposition = ContentDisposition.attachment().filename("Suicide_Risk_Form_" + suicideRisk?.crn + ".pdf").build()
+    headers.contentDisposition = ContentDisposition.attachment().filename("Suicide_Risk_Form_" + suicideRisk.crn + ".pdf").build()
     return ResponseEntity.ok().headers(headers).body(pdfBytes)
   }
 

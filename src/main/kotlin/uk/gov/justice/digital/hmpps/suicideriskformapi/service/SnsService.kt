@@ -27,6 +27,7 @@ class SnsService(
 ) {
   fun sendPublishDomainEvent(breachNotice: SuicideRisk, id: UUID) {
     val outboundTopic = hmppsQueueService.findByTopicId("hmppssuicideriskformpublishtopic") ?: throw MissingQueueException("HmppsTopic hmppssuicideriskformpublishtopic not found")
+    val userName: String? = SecurityContextHolder.getContext().authentication?.name
     val messageObject = DomainEventsMessage(
       description = "A suicide risk form has been completed for a person on probation",
       version = 1,
@@ -36,7 +37,7 @@ class SnsService(
       detailUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/suicide-risk/" + id + "/pdf",
       additionalInformation = mapOf(
         "suicideRiskFormId" to id,
-        "username" to SecurityContextHolder.getContext().authentication.name,
+        "username" to userName!!,
       ),
 
     )
@@ -51,6 +52,7 @@ class SnsService(
   fun sendDeleteDomainEvent(crn: String, id: UUID) {
     val outboundTopic = hmppsQueueService.findByTopicId("hmppssuicideriskformpublishtopic")
       ?: throw MissingQueueException("HmppsTopic hmppssuicideriskformpublishtopic not found")
+    val userName: String? = SecurityContextHolder.getContext().authentication?.name
     val messageObject = DomainEventsMessage(
       description = "A suicide risk form has been deleted",
       version = 1,
@@ -60,7 +62,7 @@ class SnsService(
       detailUrl = null,
       additionalInformation = mapOf(
         "suicideRiskFormId" to id,
-        "username" to SecurityContextHolder.getContext().authentication.name,
+        "username" to userName!!,
       ),
 
     )
