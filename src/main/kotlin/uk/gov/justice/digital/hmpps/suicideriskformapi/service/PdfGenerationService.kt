@@ -40,7 +40,6 @@ class PdfGenerationService(
     val headers = HttpHeaders()
     headers.contentType = MediaType.MULTIPART_FORM_DATA
 
-
     val header = templateEngine.process("header", Context())
     val footer = templateEngine.process("footer", Context())
     val body = LinkedMultiValueMap<String, Any>()
