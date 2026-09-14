@@ -132,26 +132,26 @@
         <td><span>
 						<div th:if="${con.contactLocation != null}">
 							<p style="margin: 0;"><span th:if="${con.contactLocation.officeDescription != null}"
-                                          th:text="${con.contactLocation.officeDescription}">{postalAddress.officeDescription}</span></p>
+                                          th:text="${con.contactLocation.officeDescription}">{con.contactLocation.officeDescription}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.buildingName != null}"
-                                          th:text="${con.contactLocation.buildingName}">{postalAddress.buildingName}</span></p>
+                                          th:text="${con.contactLocation.buildingName}">{con.contactLocation.buildingName}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.addressNumber != null}"
-                                          th:text="${con.contactLocation.addressNumber}">{postalAddress.addressNumber}</span><span
+                                          th:text="${con.contactLocation.addressNumber}">{con.contactLocation.addressNumber}</span><span
                 th:if="${con.contactLocation.addressNumber != null}"> </span><span
                 th:if="${con.contactLocation.streetName != null}"
-                th:text="${con.contactLocation.streetName}">{postalAddress.streetName}</span></p>
+                th:text="${con.contactLocation.streetName}">{con.contactLocation.streetName}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.district != null}"
-                                          th:text="${con.contactLocation.district}">{postalAddress.district}</span></p>
+                                          th:text="${con.contactLocation.district}">{con.contactLocation.district}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.townCity != null}"
-                                          th:text="${con.contactLocation.townCity}">{postalAddress.buildingName}</span></p>
+                                          th:text="${con.contactLocation.townCity}">{con.contactLocation.townCity}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.county != null}"
-                                          th:text="${con.contactLocation.county}">{postalAddress.county}</span></p>
+                                          th:text="${con.contactLocation.county}">{con.contactLocation.county}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.postcode != null}"
-                                          th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
+                                          th:text="${con.contactLocation.postcode}">{con.contactLocation.postcode}</span></p>
 						</div>
                     </span></td>
-        <td><span th:if="${con.sendFormManually || con.sendFormViaEmail}">Yes</span>
-          <span th:if="${!con.sendFormManually && !con.sendFormViaEmail}">No</span></td>
+        <td><span th:if="${con.sendFormManually == true || con.sendFormViaEmail == true}">Yes</span>
+          <span th:if="${con.sendFormManually != true && con.sendFormViaEmail != true}">No</span></td>
       </tr>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'prison_establishment']}">
         <td th:if="${iterStat.index == 0}"
@@ -162,26 +162,26 @@
         <td><span>
 						<div th:if="${con.contactLocation != null}">
 							<p style="margin: 0;"><span th:if="${con.contactLocation.officeDescription != null}"
-                                          th:text="${con.contactLocation.officeDescription}">{postalAddress.officeDescription}</span></p>
+                                          th:text="${con.contactLocation.officeDescription}">{con.contactLocation.officeDescription}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.buildingName != null}"
-                                          th:text="${con.contactLocation.buildingName}">{postalAddress.buildingName}</span></p>
+                                          th:text="${con.contactLocation.buildingName}">{con.contactLocation.buildingName}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.addressNumber != null}"
-                                          th:text="${con.contactLocation.addressNumber}">{postalAddress.addressNumber}</span><span
+                                          th:text="${con.contactLocation.addressNumber}">{con.contactLocation.buildingName}</span><span
                 th:if="${con.contactLocation.addressNumber != null}"> </span><span
                 th:if="${con.contactLocation.streetName != null}"
-                th:text="${con.contactLocation.streetName}">{postalAddress.streetName}</span></p>
+                th:text="${con.contactLocation.streetName}">{con.contactLocation.buildingName}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.district != null}"
-                                          th:text="${con.contactLocation.district}">{postalAddress.district}</span></p>
+                                          th:text="${con.contactLocation.district}">{con.contactLocation.district}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.townCity != null}"
-                                          th:text="${con.contactLocation.townCity}">{postalAddress.buildingName}</span></p>
+                                          th:text="${con.contactLocation.townCity}">{con.contactLocation.townCity}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.county != null}"
-                                          th:text="${con.contactLocation.county}">{postalAddress.county}</span></p>
+                                          th:text="${con.contactLocation.county}">{con.contactLocation.county}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.postcode != null}"
-                                          th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
+                                          th:text="${con.contactLocation.postcode}">{con.contactLocation.postcode}</span></p>
 						</div>
                     </span></td>
-        <td><span th:if="${con.sendFormManually || con.sendFormViaEmail}">Yes</span>
-          <span th:if="${!con.sendFormManually && !con.sendFormViaEmail}">No</span></td>
+        <td><span th:if="${con.sendFormManually == true || con.sendFormViaEmail == true}">Yes</span>
+          <span th:if="${con.sendFormManually != true && con.sendFormViaEmail != true}">No</span></td>
       </tr>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'police_custody_cells']}">
         <td th:if="${iterStat.index == 0}"
@@ -192,26 +192,26 @@
         <td><span>
 						<div th:if="${con.contactLocation != null}">
 							<p style="margin: 0;"><span th:if="${con.contactLocation.officeDescription != null}"
-                                          th:text="${con.contactLocation.officeDescription}">{postalAddress.officeDescription}</span></p>
+                                          th:text="${con.contactLocation.officeDescription}">{con.contactLocation.officeDescription}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.buildingName != null}"
-                                          th:text="${con.contactLocation.buildingName}">{postalAddress.buildingName}</span></p>
+                                          th:text="${con.contactLocation.buildingName}">{con.contactLocation.buildingName}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.addressNumber != null}"
-                                          th:text="${con.contactLocation.addressNumber}">{postalAddress.addressNumber}</span><span
+                                          th:text="${con.contactLocation.addressNumber}">{con.contactLocation.addressNumber}</span><span
                 th:if="${con.contactLocation.addressNumber != null}"> </span><span
                 th:if="${con.contactLocation.streetName != null}"
-                th:text="${con.contactLocation.streetName}">{postalAddress.streetName}</span></p>
+                th:text="${con.contactLocation.streetName}">{con.contactLocation.streetName}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.district != null}"
-                                          th:text="${con.contactLocation.district}">{postalAddress.district}</span></p>
+                                          th:text="${con.contactLocation.district}">{con.contactLocation.district}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.townCity != null}"
-                                          th:text="${con.contactLocation.townCity}">{postalAddress.buildingName}</span></p>
+                                          th:text="${con.contactLocation.townCity}">{con.contactLocation.townCity}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.county != null}"
-                                          th:text="${con.contactLocation.county}">{postalAddress.county}</span></p>
+                                          th:text="${con.contactLocation.county}">{con.contactLocation.county}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.postcode != null}"
-                                          th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
+                                          th:text="${con.contactLocation.postcode}">{con.contactLocation.postcode}</span></p>
 						</div>
                     </span></td>
-        <td><span th:if="${con.sendFormManually || con.sendFormViaEmail}">Yes</span>
-          <span th:if="${!con.sendFormManually && !con.sendFormViaEmail}">No</span></td>
+        <td><span th:if="${con.sendFormManually == true || con.sendFormViaEmail == true}">Yes</span>
+          <span th:if="${con.sendFormManually != true && con.sendFormViaEmail != true}">No</span></td>
       </tr>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'medical_services']}">
         <td th:if="${iterStat.index == 0}"
@@ -222,26 +222,26 @@
         <td><span>
 						<div th:if="${con.contactLocation != null}">
 							<p style="margin: 0;"><span th:if="${con.contactLocation.officeDescription != null}"
-                                          th:text="${con.contactLocation.officeDescription}">{postalAddress.officeDescription}</span></p>
+                                          th:text="${con.contactLocation.officeDescription}">{con.contactLocation.officeDescription}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.buildingName != null}"
-                                          th:text="${con.contactLocation.buildingName}">{postalAddress.buildingName}</span></p>
+                                          th:text="${con.contactLocation.buildingName}">{con.contactLocation.buildingName}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.addressNumber != null}"
-                                          th:text="${con.contactLocation.addressNumber}">{postalAddress.addressNumber}</span><span
+                                          th:text="${con.contactLocation.addressNumber}">{con.contactLocation.addressNumber}</span><span
                 th:if="${con.contactLocation.addressNumber != null}"> </span><span
                 th:if="${con.contactLocation.streetName != null}"
-                th:text="${con.contactLocation.streetName}">{postalAddress.streetName}</span></p>
+                th:text="${con.contactLocation.streetName}">{con.contactLocation.streetName}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.district != null}"
-                                          th:text="${con.contactLocation.district}">{postalAddress.district}</span></p>
+                                          th:text="${con.contactLocation.district}">{con.contactLocation.district}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.townCity != null}"
-                                          th:text="${con.contactLocation.townCity}">{postalAddress.buildingName}</span></p>
+                                          th:text="${con.contactLocation.townCity}">{con.contactLocation.townCity}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.county != null}"
-                                          th:text="${con.contactLocation.county}">{postalAddress.county}</span></p>
+                                          th:text="${con.contactLocation.county}">{con.contactLocation.county}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.postcode != null}"
-                                          th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
+                                          th:text="${con.contactLocation.postcode}">{con.contactLocation.postcode}</span></p>
 						</div>
                     </span></td>
-        <td><span th:if="${con.sendFormManually || con.sendFormViaEmail}">Yes</span>
-          <span th:if="${!con.sendFormManually && !con.sendFormViaEmail}">No</span></td>
+        <td><span th:if="${con.sendFormManually == true || con.sendFormViaEmail == true}">Yes</span>
+          <span th:if="${con.sendFormManually != true && con.sendFormViaEmail != true}">No</span></td>
       </tr>
       <tr th:each="con, iterStat: ${suicideRisk.suicideRiskContactList.?[contactTypeDescription == 'other_agency']}">
         <td th:if="${iterStat.index == 0}"
@@ -252,26 +252,26 @@
         <td><span>
 						<div th:if="${con.contactLocation != null}">
 							<p style="margin: 0;"><span th:if="${con.contactLocation.officeDescription != null}"
-                                          th:text="${con.contactLocation.officeDescription}">{postalAddress.officeDescription}</span></p>
+                                          th:text="${con.contactLocation.officeDescription}">{con.contactLocation.officeDescription}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.buildingName != null}"
-                                          th:text="${con.contactLocation.buildingName}">{postalAddress.buildingName}</span></p>
+                                          th:text="${con.contactLocation.buildingName}">{con.contactLocation.buildingName}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.addressNumber != null}"
-                                          th:text="${con.contactLocation.addressNumber}">{postalAddress.addressNumber}</span><span
+                                          th:text="${con.contactLocation.addressNumber}">{con.contactLocation.addressNumber}</span><span
                 th:if="${con.contactLocation.addressNumber != null}"> </span><span
                 th:if="${con.contactLocation.streetName != null}"
-                th:text="${con.contactLocation.streetName}">{postalAddress.streetName}</span></p>
+                th:text="${con.contactLocation.streetName}">{con.contactLocation.streetName}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.district != null}"
-                                          th:text="${con.contactLocation.district}">{postalAddress.district}</span></p>
+                                          th:text="${con.contactLocation.district}">{con.contactLocation.district}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.townCity != null}"
-                                          th:text="${con.contactLocation.townCity}">{postalAddress.buildingName}</span></p>
+                                          th:text="${con.contactLocation.townCity}">{con.contactLocation.townCity}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.county != null}"
-                                          th:text="${con.contactLocation.county}">{postalAddress.county}</span></p>
+                                          th:text="${con.contactLocation.county}">{con.contactLocation.county}</span></p>
 							<p style="margin: 0;"><span th:if="${con.contactLocation.postcode != null}"
-                                          th:text="${con.contactLocation.postcode}">{postalAddress.postcode}</span></p>
+                                          th:text="${con.contactLocation.postcode}">{con.contactLocation.postcode}</span></p>
 						</div>
                     </span></td>
-        <td><span th:if="${con.sendFormManually || con.sendFormViaEmail}">Yes</span>
-          <span th:if="${!con.sendFormManually && !con.sendFormViaEmail}">No</span></td>
+        <td><span th:if="${con.sendFormManually == true || con.sendFormViaEmail == true}">Yes</span>
+          <span th:if="${con.sendFormManually != true && con.sendFormViaEmail != true}">No</span></td>
       </tr>
     </tbody>
   </table>
