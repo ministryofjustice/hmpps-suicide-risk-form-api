@@ -40,6 +40,9 @@ class PdfGenerationService(
     val headers = HttpHeaders()
     headers.contentType = MediaType.MULTIPART_FORM_DATA
 
+
+    val header = templateEngine.process("header", Context())
+    val footer = templateEngine.process("footer", Context())
     val body = LinkedMultiValueMap<String, Any>()
     body.add(
       "files",
@@ -48,6 +51,26 @@ class PdfGenerationService(
         HttpHeaders().apply {
           contentType = MediaType.TEXT_HTML
           setContentDispositionFormData("files", "index.html")
+        },
+      ),
+    )
+    body.add(
+      "files",
+      HttpEntity(
+        (header ?: "").toByteArray(StandardCharsets.UTF_8),
+        HttpHeaders().apply {
+          contentType = MediaType.TEXT_HTML
+          setContentDispositionFormData("files", "header.html")
+        },
+      ),
+    )
+    body.add(
+      "files",
+      HttpEntity(
+        (footer ?: "").toByteArray(StandardCharsets.UTF_8),
+        HttpHeaders().apply {
+          contentType = MediaType.TEXT_HTML
+          setContentDispositionFormData("files", "footer.html")
         },
       ),
     )
