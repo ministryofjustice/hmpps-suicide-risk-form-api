@@ -20,7 +20,7 @@ dependencies {
   implementation("org.flywaydb:flyway-core")
   implementation("org.apache.pdfbox:pdfbox:2.0.37")
   implementation("org.springframework.boot:spring-boot-starter-flyway")
-  implementation("uk.gov.service.notify:notifications-java-client:6.2.0-RELEASE")
+  implementation("uk.gov.service.notify:notifications-java-client:6.2.1-RELEASE")
 
   runtimeOnly("org.flywaydb:flyway-database-postgresql")
   runtimeOnly("org.postgresql:postgresql")
