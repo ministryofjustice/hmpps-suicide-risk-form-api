@@ -1,4 +1,4 @@
-package uk.gov.justice.digital.hmpps.templatepackagename.integration
+package uk.gov.justice.digital.hmpps.suicideriskformapi.integration
 
 import io.swagger.v3.parser.OpenAPIV3Parser
 import net.minidev.json.JSONArray
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.info.BuildProperties
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.http.MediaType
-import uk.gov.justice.digital.hmpps.suicideriskformapi.integration.IntegrationTestBase
 
 class OpenApiDocsTest(
   @Autowired private val buildProperties: BuildProperties,
