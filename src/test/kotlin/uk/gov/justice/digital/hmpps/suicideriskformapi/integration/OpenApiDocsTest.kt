@@ -7,14 +7,15 @@ import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.info.BuildProperties
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.http.MediaType
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
-class OpenApiDocsTest : IntegrationTestBase() {
-  @LocalServerPort
-  private val port: Int = 0
+class OpenApiDocsTest(
+  @Autowired private val buildProperties: BuildProperties,
+  @LocalServerPort private val port: Int = 0,
+) : IntegrationTestBase() {
 
   @Test
   fun `open api docs are available`() {
@@ -36,7 +37,6 @@ class OpenApiDocsTest : IntegrationTestBase() {
   }
 
   @Test
-  @Disabled("TODO Enable this test once you have an endpoint. It checks that endpoints appear on the OpenAPI spec.")
   fun `the open api json contains documentation`() {
     webTestClient.get()
       .uri("/v3/api-docs")
@@ -48,13 +48,30 @@ class OpenApiDocsTest : IntegrationTestBase() {
   }
 
   @Test
+  fun `the swagger json don't contain any duplicate methods`() {
+    // Methods in resource classes with the same name end up with operationIds that have _1 and _2 etc. in the name.
+    // When the code is then generated from the api docs we refer to the endpoint by operationId. If a new method is
+    // added or one removed then the _1 / _2 etc. can change order and thus we end up calling a completely different
+    // endpoint next time the code is generated. This test then prevents that from happening by ensuring all endpoints
+    // have method names / operation ids.
+    webTestClient.get()
+      .uri("/v3/api-docs")
+      .accept(MediaType.APPLICATION_JSON)
+      .exchange()
+      .expectStatus().isOk
+      .expectBody().jsonPath("*..operationId").value<List<String>> { list ->
+        assertThat(list).filteredOn { it.contains("_") }.isEmpty()
+      }
+  }
+
+  @Test
   fun `the open api json contains the version number`() {
     webTestClient.get()
       .uri("/v3/api-docs")
       .accept(MediaType.APPLICATION_JSON)
       .exchange()
       .expectStatus().isOk
-      .expectBody().jsonPath("info.version").isEqualTo(DateTimeFormatter.ISO_DATE.format(LocalDate.now()))
+      .expectBody().jsonPath("info.version").isEqualTo(buildProperties.version)
   }
 
   @Test
