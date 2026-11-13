@@ -94,4 +94,3 @@ gotenberg:
 
 generic-prometheus-alerts:
   targetApplication: hmpps-suicide-risk-form-api
-  alertSeverity: hmpps-suicide-risk-form-notifications
